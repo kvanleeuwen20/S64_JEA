@@ -1,5 +1,8 @@
 package domain;
 
+/**
+ * Moderator class. A moderator is a user with extra rights. No extra information, but extra actions.
+ */
 public class Moderator extends User {
     /**
      * Constructor for registering a new moderator.
