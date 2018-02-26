@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * A user of the application who has created an account.
+ */
 public class User {
 
     /**
