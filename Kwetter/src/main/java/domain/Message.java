@@ -139,7 +139,7 @@ public class Message {
     /**
      * Unlike a post.
      *
-     * @param like the user who likes the post.
+     * @param unlike the user who likes the post.
      */
     public void unlike(User like) {
         throw new UnsupportedOperationException();

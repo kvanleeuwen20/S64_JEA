@@ -10,6 +10,10 @@ import java.util.List;
 public class User {
 
     /**
+     * Unique identifier of the user.
+     */
+    protected int id;
+    /**
      * Email address entered when registering.
      */
     protected String email;
@@ -41,16 +45,14 @@ public class User {
      * Path to the profile picture of the user. Can be an empty String.
      */
     protected String profilePicturePath;
-
     /**
      * List of users which are following this user.
      */
-    protected List<User> followers;
+    protected List<Integer> followers;
     /**
      * List of users which this user is following.
      */
     protected List<User> following;
-
     /**
      * List of messages this user has posted.
      */
@@ -289,8 +291,8 @@ public class User {
      *
      * @return followers
      */
-    public List<User> getFollowers() {
-        List<User> returnList = new ArrayList<User>();
+    public List<Integer> getFollowers() {
+        List<Integer> returnList = new ArrayList<>();
         Collections.copy(returnList, this.followers);
         return returnList;
     }
