@@ -48,7 +48,7 @@ public class User {
     /**
      * List of users which are following this user.
      */
-    protected List<User> followers;
+    protected List<Integer> followers;
     /**
      * List of users which this user is following.
      */
@@ -291,8 +291,8 @@ public class User {
      *
      * @return followers
      */
-    public List<User> getFollowers() {
-        List<User> returnList = new ArrayList<User>();
+    public List<Integer> getFollowers() {
+        List<Integer> returnList = new ArrayList<>();
         Collections.copy(returnList, this.followers);
         return returnList;
     }
