@@ -50,7 +50,7 @@ public class Message {
             throw new IllegalArgumentException("Content must be a non-empty String and smaller than 140 characters");
         }
         if (postTime == null) {
-            throw new IllegalArgumentException("PostTime cannot be null.")
+            throw new IllegalArgumentException("PostTime cannot be null.");
         }
         if (postTime.compareTo(new Date()) > 0) {
             throw new IllegalArgumentException("PostTime cannot be in the future");
@@ -138,7 +138,7 @@ public class Message {
     /**
      * Unlike a post.
      *
-     * @param like the user who likes the post.
+     * @param unlike the user who likes the post.
      */
     public void unlike(User unlike) {
         throw new UnsupportedOperationException();

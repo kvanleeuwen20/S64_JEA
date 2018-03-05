@@ -1,7 +1,5 @@
 package domain;
 
-import jdk.jshell.spi.ExecutionControl;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +9,10 @@ import java.util.List;
  */
 public class User {
 
+    /**
+     * Unique identifier of the user.
+     */
+    protected int id;
     /**
      * Email address entered when registering.
      */
@@ -43,7 +45,6 @@ public class User {
      * Path to the profile picture of the user. Can be an empty String.
      */
     protected String profilePicturePath;
-
     /**
      * List of users which are following this user.
      */
@@ -52,7 +53,6 @@ public class User {
      * List of users which this user is following.
      */
     protected List<User> following;
-
     /**
      * List of messages this user has posted.
      */
