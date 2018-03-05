@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class Message {
     /**
      * The time the message was posted.
      */
-    private Date postTime;
+    private GregorianCalendar postTime;
     /**
      * The user who posted the message
      */
@@ -45,14 +46,14 @@ public class Message {
      * @param postTime the time the message was posted. Cannot be in the future.
      * @param poster the user who posted the message.
      */
-    public Message(String content, Date postTime, User poster) {
+    public Message(String content, GregorianCalendar postTime, User poster) {
         if (content == null || content.isEmpty() || content.length() >= CHARACTERLIMIT) {
             throw new IllegalArgumentException("Content must be a non-empty String and smaller than 140 characters");
         }
         if (postTime == null) {
-            throw new IllegalArgumentException("PostTime cannot be null.")
+            throw new IllegalArgumentException("PostTime cannot be null.");
         }
-        if (postTime.compareTo(new Date()) > 0) {
+        if (postTime.compareTo(new GregorianCalendar()) > 0) {
             throw new IllegalArgumentException("PostTime cannot be in the future");
         }
         if (poster == null) {
@@ -90,7 +91,7 @@ public class Message {
      * Get the date and time of the message.
      * @return post time
      */
-    public Date getPostTime() {
+    public GregorianCalendar getPostTime() {
         return postTime;
     }
 
@@ -140,7 +141,7 @@ public class Message {
      *
      * @param like the user who likes the post.
      */
-    public void unlike(User unlike) {
+    public void unlike(User like) {
         throw new UnsupportedOperationException();
     }
 
