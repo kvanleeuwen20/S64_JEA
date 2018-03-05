@@ -1,19 +1,14 @@
 package domain;
 
-/**
- * Moderator class. A moderator is a user with extra rights. No extra information, but extra actions.
- */
+import java.util.ArrayList;
+
 public class Moderator extends User {
     /**
-     * Constructor for registering a new moderator.
+     * Upgrade a user to a moderator.
      *
-     * @param email              email address used for login.
-     * @param password           password used for login.
-     * @param username           display name towards other users.
-     * @param name
-     * @param profilePicturePath path to the profile picture file. Can be null.
+     * @param user the user to upgrade.
      */
-    public Moderator(String email, String password, String username, String name, String profilePicturePath) {
-        super(email, password, username, name, profilePicturePath);
+    public Moderator(User user) {
+        super(user);
     }
 }

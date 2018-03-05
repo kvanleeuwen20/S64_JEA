@@ -1,5 +1,7 @@
 package domain;
 
+import jdk.jshell.spi.ExecutionControl;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,49 +14,49 @@ public class User {
     /**
      * Email address entered when registering.
      */
-    private String email;
+    protected String email;
     /**
      * Password entered when registering.
      */
-    private String password;
+    protected String password;
     /**
      * Display name towards other users. Can also be used for logging in.
      */
-    private String username;
+    protected String username;
     /**
      * Real name. Can be an empty String.
      */
-    private String name;
+    protected String name;
     /**
      * Website address. Can be an empty String.
      */
-    private String website;
+    protected String website;
     /**
      * Location, such as place of residence or country. Can be an empty String.
      */
-    private String location;
+    protected String location;
     /**
      * Short biography of the user. Can be an empty String.
      */
-    private String bio;
+    protected String bio;
     /**
      * Path to the profile picture of the user. Can be an empty String.
      */
-    private String profilePicturePath;
+    protected String profilePicturePath;
 
     /**
      * List of users which are following this user.
      */
-    private List<User> followers;
+    protected List<User> followers;
     /**
      * List of users which this user is following.
      */
-    private List<User> following;
+    protected List<User> following;
 
     /**
      * List of messages this user has posted.
      */
-    private List<Message> messages;
+    protected List<Message> messages;
 
     /**
      * Constructor for registering a new user.
@@ -62,7 +64,8 @@ public class User {
      * @param email email address used for login.
      * @param password password used for login.
      * @param username display name towards other users.
-     * @param profilePicturePath path to the profile picture file. Can be null.
+     * @param name the real name of the user. Can be an empty String.
+     * @param profilePicturePath path to the profile picture file. Can be an empty String.
      */
     public User(String email, String password, String username, String name, String profilePicturePath) {
         if (email == null || email.isEmpty()) {
@@ -74,8 +77,8 @@ public class User {
         if (username == null || username.isEmpty()) {
             throw new IllegalArgumentException(("Username must be a non-empty String."));
         }
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException(("Name must be a non-empty String."));
+        if (name == null) {
+            throw new IllegalArgumentException(("Name cannot be null."));
         }
         if (profilePicturePath == null) {
             throw new IllegalArgumentException(("ProfilePicturePath cannot be null."));
@@ -95,6 +98,32 @@ public class User {
         this.following = new ArrayList<>();
 
         this.messages = new ArrayList<>();
+    }
+
+    /**
+     * Create a copy of the user. Used for upgrading a user to a moderator.
+     *
+     * @param user the user to upgrade
+     */
+    protected User(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null.");
+        }
+
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.username = user.getUsername();
+        this.name = user.getName();
+        this.profilePicturePath = user.getProfilePicturePath();
+
+        this.website = user.getWebsite();
+        this.location = user.getLocation();
+        this.bio = user.getBio();
+
+        this.followers = user.getFollowers();
+        this.following = user.getFollowing();
+
+        this.messages = user.getMessages();
     }
 
     /**
@@ -288,5 +317,33 @@ public class User {
         List<Message> returnList = new ArrayList<Message>();
         Collections.copy(returnList, this.messages);
         return returnList;
+    }
+
+    /**
+     * Check if this user is a moderator.
+     *
+     * @return a boolean. When true the usr is a moderator.
+     */
+    public boolean isModerator() {
+        return this instanceof Moderator;
+    }
+
+    /**
+     * Start following this user.
+     *
+     * @param toFollow the user to follow. When this user is already following the toFollow, nothing happens.
+     *                 If the user is trying to follow himself, an exception is thrown.
+     */
+    public void follow(User toFollow) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Stop following this user.
+     *
+     * @param toUnfollow the user to unfollow. If this user is not following the toUnfollow, nothing happens.
+     */
+    public void unfollow(User toUnfollow) {
+        throw new UnsupportedOperationException();
     }
 }
