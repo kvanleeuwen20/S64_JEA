@@ -1,27 +1,19 @@
-/**
- * <&copy {@link domain.MessageTest.java}>
- * Copyright (c) Jeroen & Pim. All rights reserved.
- * <&copy>
- * <p>
- * Package
- */
+// <&copy {@link domain.MessageTest.java}>
+// Copyright (c) Jeroen & Pim. All rights reserved.
+// <&copy>
 
-/**
- * Package
- */
+// Packages
 package domain;
 
-/**
- * Imports
- */
-
+// Imports
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import sun.util.resources.cldr.agq.CurrencyNames_agq;
 
 import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The Junit tests for the {@link Message} class.
@@ -41,19 +33,45 @@ public class MessageTest {
 
     // Setup variables.
     private final GregorianCalendar postTime = new GregorianCalendar();
+    private Set<String> hashtags;
+    private Set<User> likes;
+    private Set<User> mentions;
 
     // Setup classes.
     private final User poster = new User(EMAIL, PASSWORD, USERNAME, NAME, PROFILEPICTUREPATH);
 
+    // Setup testMessage.
+    private Message testMessage = null;
+
 
     @Before
     public void setUp() throws Exception {
-        // Will be used if there needs to be an initialization before the tests are run.
+        try {
+            // Variables.
+            hashtags = new HashSet<>();
+            likes = new HashSet<>();
+            mentions = new HashSet<>();
+
+            // testMessage.
+            testMessage = new Message(CONTENT, postTime, poster);
+        } catch (Exception ex) {
+            throw new Exception("An exception has occured in the setUp");
+        }
     }
 
     @After
     public void tearDown() throws Exception {
-        // Will be used if there needs to be something done after the tests are run.
+        try {
+            // Variables.
+            hashtags = null;
+            likes = null;
+            mentions = null;
+
+            // testMessage.
+            testMessage = null;
+        } catch (Exception ex) {
+            throw new Exception("An exception has occured in the tearDown");
+        }
     }
 
     /**
@@ -61,15 +79,26 @@ public class MessageTest {
      */
     @Test
     public void test_constructor_right() {
-        Message testMessage = new Message(CONTENT, postTime, poster);
-        Assert.assertNotNull(testMessage);
+        Message assertMessage = new Message(CONTENT, postTime, poster);
+        Assert.assertNotNull(assertMessage);
+    }
+
+    /**
+     * {@link Message#Message(String, GregorianCalendar, User)}
+     */
+    @Test
+    public void test_constructor_right_content140() {
+        String testContent = new String(new char[140]).replace('\0', 'a');
+
+        Message assertMessage = new Message(testContent, postTime, poster);
+        Assert.assertNotNull(assertMessage);
     }
 
     /**
      * {@link Message#Message(String, GregorianCalendar, User)}
      */
     @Test(expected = IllegalArgumentException.class)
-    public void test_constructor_content_null(){
+    public void test_constructor_contentNull() {
         new Message(null, postTime, poster);
     }
 
@@ -77,7 +106,7 @@ public class MessageTest {
      * {@link Message#Message(String, GregorianCalendar, User)}
      */
     @Test(expected = IllegalArgumentException.class)
-    public void test_constructor_content_empty() {
+    public void test_constructor_contentEmpty() {
         new Message("", postTime, poster);
     }
 
@@ -85,15 +114,17 @@ public class MessageTest {
      * {@link Message#Message(String, GregorianCalendar, User)}
      */
     @Test(expected = IllegalArgumentException.class)
-    public void test_constructor_content_tooLong(){
-        new Message("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", postTime, poster);
+    public void test_constructor_contentTooLong() {
+        String testString = new String(new char[141]);
+
+        new Message(testString, postTime, poster);
     }
 
     /**
      * {@link Message#Message(String, GregorianCalendar, User)}
      */
     @Test(expected = IllegalArgumentException.class)
-    public void test_constructor_postTime_null(){
+    public void test_constructor_postTimeNull() {
         new Message(CONTENT, null, poster);
     }
 
@@ -101,54 +132,140 @@ public class MessageTest {
      * {@link Message#Message(String, GregorianCalendar, User)}
      */
     @Test(expected = IllegalArgumentException.class)
-    public void test_constructor_postTime_future(){
-        GregorianCalendar future = new GregorianCalendar();
-        future.add(GregorianCalendar.DATE, 1);
+    public void test_constructor_postTimeFuture() {
+        GregorianCalendar testCalendar = new GregorianCalendar();
+        testCalendar.add(GregorianCalendar.DATE, 1);
 
-        new Message(CONTENT, future, poster);
+        new Message(CONTENT, testCalendar, poster);
     }
 
     /**
      * {@link Message#Message(String, GregorianCalendar, User)}
      */
     @Test(expected = IllegalArgumentException.class)
-    public void test_constructor_poster_null(){
+    public void test_constructor_posterNull() {
         new Message(CONTENT, postTime, null);
     }
 
-//    @Test
-//    public void getContent() {
-//    }
-//
-//    @Test
-//    public void setContent() {
-//    }
-//
-//    @Test
-//    public void getPostTime() {
-//    }
-//
-//    @Test
-//    public void getPoster() {
-//    }
-//
-//    @Test
-//    public void getHashtags() {
-//    }
-//
-//    @Test
-//    public void getMentions() {
-//    }
-//
-//    @Test
-//    public void getLikes() {
-//    }
-//
-//    @Test
-//    public void like() {
-//    }
-//
-//    @Test
-//    public void unlike() {
-//    }
+    /**
+     * {@link Message#getContent()}
+     */
+    @Test
+    public void test_getContent_right() {
+        Assert.assertEquals(CONTENT, testMessage.getContent());
+    }
+
+    /**
+     * {@link Message#getHashtags()}
+     */
+    @Test
+    public void test_getHashtags_right_empty() {
+        Assert.assertEquals(hashtags, testMessage.getHashtags());
+    }
+
+    /**
+     * {@link Message#getHashtags()}
+     */
+    @Test
+    public void test_getHashtags_right_filled() {
+        // TODO: add test after the hashtag functionality has been added.
+    }
+
+    /**
+     * {@link Message#getLikes()}
+     */
+    @Test
+    public void test_getLikes_right_empty() {
+        Assert.assertEquals(likes, testMessage.getLikes());
+    }
+
+    /**
+     * {@link Message#getLikes()}
+     */
+    @Test
+    public void test_getLikes_right_filled() {
+        // TODO: add test after the like functionality has been added.
+    }
+
+    /**
+     * {@link Message#getMentions()}
+     */
+    @Test
+    public void test_getMentions_right_empty() {
+        Assert.assertEquals(mentions, testMessage.getMentions());
+    }
+
+    /**
+     * {@link Message#getMentions()}
+     */
+    @Test
+    public void test_getMentions_right_filled() {
+        //TODO: add test after the hashtag functionality has been added.
+    }
+
+    /**
+     * {@link Message#getPoster()}
+     */
+    @Test
+    public void test_getPoster_right() {
+        Assert.assertEquals(poster, testMessage.getPoster());
+    }
+
+    /**
+     * {@link Message#getPostTime()}
+     */
+    @Test
+    public void test_getPostTime_right() {
+        Assert.assertEquals(postTime, testMessage.getPostTime());
+    }
+
+    /**
+     * {@link Message#setContent(String)}
+     */
+    @Test
+    public void test_setContent_right() {
+        String testContent = "setContentTest";
+
+        testMessage.setContent(testContent);
+
+        Assert.assertEquals(testContent, testMessage.getContent());
+    }
+
+    /**
+     * {@link Message#setContent(String)}
+     */
+    @Test
+    public void test_setContent_right_140() {
+        String testContent = new String(new char[140]).replace('\0', 'a');
+
+        testMessage.setContent(testContent);
+
+        Assert.assertEquals(testContent, testMessage.getContent());
+    }
+
+    /**
+     * {@link Message#setContent(String)}
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_setContent_null() {
+        testMessage.setContent(null);
+    }
+
+    /**
+     * {@link Message#setContent(String)}
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_setContent_empty() {
+        testMessage.setContent("");
+    }
+
+    /**
+     * {@link Message#setContent(String)}
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void test_setContent_tooLong() {
+        String testContent = new String(new char[141]);
+
+        testMessage.setContent(testContent);
+    }
 }
