@@ -75,7 +75,7 @@ public class UserTest {
     /**
      * {@link User#User(String, String, String, String, String)}
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void test_constructor_emailNull() {
         new User(null, PASSWORD, USERNAME, NAME, PROFILEPICTUREPATH);
     }
@@ -83,7 +83,7 @@ public class UserTest {
     /**
      * {@link User#User(String, String, String, String, String)}
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void test_constructor_emailEmpty() {
         new User("", PASSWORD, USERNAME, NAME, PROFILEPICTUREPATH);
     }
@@ -91,7 +91,7 @@ public class UserTest {
     /**
      * {@link User#User(String, String, String, String, String)}
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void test_constructor_passwordNull() {
         new User(EMAIL, null, USERNAME, NAME, PROFILEPICTUREPATH);
     }
@@ -99,7 +99,7 @@ public class UserTest {
     /**
      * {@link User#User(String, String, String, String, String)}
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void test_constructor_passwordEmpty() {
         new User(EMAIL, "", USERNAME, NAME, PROFILEPICTUREPATH);
     }
@@ -107,7 +107,7 @@ public class UserTest {
     /**
      * {@link User#User(String, String, String, String, String)}
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void test_constructor_usernameNull() {
         new User(EMAIL, PASSWORD, null, NAME, PROFILEPICTUREPATH);
     }
@@ -115,7 +115,7 @@ public class UserTest {
     /**
      * {@link User#User(String, String, String, String, String)}
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void test_constructor_usernameEmpty() {
         new User(null, PASSWORD, "", NAME, PROFILEPICTUREPATH);
     }
@@ -123,7 +123,7 @@ public class UserTest {
     /**
      * {@link User#User(String, String, String, String, String)}
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void test_constructor_nameNull() {
         new User(EMAIL, PASSWORD, USERNAME, null, PROFILEPICTUREPATH);
     }
@@ -131,7 +131,7 @@ public class UserTest {
     /**
      * {@link User#User(String, String, String, String, String)}
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void test_constructor_profilePicturePathNull() {
         new User(null, PASSWORD, USERNAME, NAME, null);
     }
