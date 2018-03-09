@@ -2,7 +2,7 @@
 // Copyright (c) Jeroen & Pim. All rights reserved.
 // <&copy>
 
-// Packages
+// Package
 package domain;
 
 // Imports
@@ -25,7 +25,7 @@ public class MessageTest {
 
     // Setup primary data types and strings.
     private static final String CONTENT = "TESTcontent";
-    private static final String EMAIL = "TESTemail";
+    private static final String EMAIL = "TESTemail@email.com";
     private static final String NAME = "TESTname";
     private static final String PASSWORD = "TESTpasswword";
     private static final String PROFILEPICTUREPATH = "TESTprofilePicturePath";
@@ -43,7 +43,11 @@ public class MessageTest {
     // Setup testMessage.
     private Message testMessage = null;
 
-
+    /**
+     * The class which handles the setup before a test.
+     *
+     * @throws Exception catches all unexpected exceptions.
+     */
     @Before
     public void setUp() throws Exception {
         try {
@@ -55,10 +59,15 @@ public class MessageTest {
             // testMessage.
             testMessage = new Message(CONTENT, postTime, poster);
         } catch (Exception ex) {
-            throw new Exception("An exception has occured in the setUp");
+            throw new Exception("An exception has occurred in the setUp");
         }
     }
 
+    /**
+     * The class which handles the teardown after a test.
+     *
+     * @throws Exception catches all unexpected exceptions.
+     */
     @After
     public void tearDown() throws Exception {
         try {
@@ -70,7 +79,7 @@ public class MessageTest {
             // testMessage.
             testMessage = null;
         } catch (Exception ex) {
-            throw new Exception("An exception has occured in the tearDown");
+            throw new Exception("An exception has occurred in the tearDown");
         }
     }
 
