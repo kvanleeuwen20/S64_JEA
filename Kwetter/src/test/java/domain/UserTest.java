@@ -136,11 +136,11 @@ public class UserTest {
         new User(null, PASSWORD, USERNAME, NAME, null);
     }
 
-    /**
-     * {@link User#User(User)}
-     */
-    @Test
-    public void test_constructor_
+//    /**
+//     * {@link User#User(User)}
+//     */
+//    @Test
+//    public void test_constructor_
 
     @Test
     public void getEmail() {
