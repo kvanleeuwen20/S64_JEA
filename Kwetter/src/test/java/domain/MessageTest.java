@@ -89,6 +89,7 @@ public class MessageTest {
     @Test
     public void test_constructor_right() {
         Message assertMessage = new Message(CONTENT, postTime, poster);
+        assertMessage = null;
         Assert.assertNotNull(assertMessage);
     }
 
