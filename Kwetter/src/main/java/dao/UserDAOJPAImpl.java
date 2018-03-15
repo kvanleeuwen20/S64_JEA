@@ -4,13 +4,7 @@ import domain.User;
 
 import java.util.Set;
 
-public class UserDAOImpl implements UserDAO {
-    private Set<User> users;
-
-    public UserDAOImpl() {
-
-    }
-
+public class UserDAOJPAImpl implements UserDAO {
     /**
      * Gets all the users of the application.
      *
@@ -24,7 +18,7 @@ public class UserDAOImpl implements UserDAO {
     /**
      * Add a user to the list of users.
      *
-     * @param user
+     * @param user the user to add to the list of users.
      * @return a boolean indicating whether the user was added.
      */
     @Override
@@ -35,7 +29,7 @@ public class UserDAOImpl implements UserDAO {
     /**
      * Remove a user from the list of users.
      *
-     * @param user
+     * @param user the user to remove from the list of users.
      */
     @Override
     public void removeUser(User user) {
@@ -45,7 +39,7 @@ public class UserDAOImpl implements UserDAO {
     /**
      * Update the information of a user.
      *
-     * @param user
+     * @param user the user to update and its updated details.
      * @return a boolean indicating whether the update was succesful.
      */
     @Override
