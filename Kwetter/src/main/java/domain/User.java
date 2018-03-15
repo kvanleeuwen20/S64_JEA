@@ -46,6 +46,10 @@ public class User {
      */
     protected String profilePicturePath;
     /**
+     * Role of the user.
+     */
+    protected UserRole role;
+    /**
      * List of users which are following this user.
      */
     protected List<Integer> followers;
@@ -94,36 +98,12 @@ public class User {
         this.location = "";
         this.bio = "";
 
+        this.role = UserRole.USER;
+
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
 
         this.messages = new ArrayList<>();
-    }
-
-    /**
-     * Create a copy of the user. Used for upgrading a user to a moderator.
-     *
-     * @param user the user to upgrade
-     */
-    protected User(User user) {
-        if (user == null) {
-            throw new IllegalArgumentException("User cannot be null.");
-        }
-
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.username = user.getUsername();
-        this.name = user.getName();
-        this.profilePicturePath = user.getProfilePicturePath();
-
-        this.website = user.getWebsite();
-        this.location = user.getLocation();
-        this.bio = user.getBio();
-
-        this.followers = user.getFollowers();
-        this.following = user.getFollowing();
-
-        this.messages = user.getMessages();
     }
 
     /**
@@ -284,6 +264,22 @@ public class User {
         }
 
         this.profilePicturePath = profilePicturePath;
+    }
+
+    /**
+     * Get role of the user.
+     * @return role of the user as an enum value.
+     */
+    public UserRole getRole() {
+        return this.role;
+    }
+
+    /**
+     * Set role of the user.
+     * @param role the new role as an enum value.
+     */
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     /**
