@@ -1,5 +1,7 @@
 package domain;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,23 +9,38 @@ import java.util.List;
 /**
  * A user of the application who has created an account.
  */
-public class User {
+@Entity
+@Table(name = "User")
+@NamedQueries({
+        @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+        @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
+        @NamedQuery(
+                name = "User.authenticate",
+                query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"
+        )
+})
+public class User implements Serializable{
 
     /**
      * Unique identifier of the user.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
     /**
      * Email address entered when registering.
      */
+    @Column(unique = true, nullable = false)
     protected String email;
     /**
      * Password entered when registering.
      */
+    @Column(nullable = false)
     protected String password;
     /**
      * Display name towards other users. Can also be used for logging in.
      */
+    @Column(unique = true, nullable = false)
     protected String username;
     /**
      * Real name. Can be an empty String.
@@ -48,18 +65,22 @@ public class User {
     /**
      * Role of the user.
      */
+    @Enumerated(EnumType.STRING)
     protected UserRole role;
     /**
      * List of users which are following this user.
      */
-    protected List<Integer> followers;
+    @ManyToMany(mappedBy = "following", cascade = CascadeType.PERSIST)
+    protected List<User> followers;
     /**
      * List of users which this user is following.
      */
+    @ManyToMany(cascade = CascadeType.PERSIST)
     protected List<User> following;
     /**
      * List of messages this user has posted.
      */
+    @OneToMany
     protected List<Message> messages;
 
     /**
@@ -287,8 +308,8 @@ public class User {
      *
      * @return followers
      */
-    public List<Integer> getFollowers() {
-        List<Integer> returnList = new ArrayList<>();
+    public List<User> getFollowers() {
+        List<User> returnList = new ArrayList<>();
         Collections.copy(returnList, this.followers);
         return returnList;
     }

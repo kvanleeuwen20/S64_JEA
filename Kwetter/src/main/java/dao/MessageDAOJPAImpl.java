@@ -2,9 +2,19 @@ package dao;
 
 import domain.Message;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Set;
 
 public class MessageDAOJPAImpl implements MessageDAO {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public MessageDAOJPAImpl(){
+        
+    }
+
     /**
      * Gets all the messages of the application.
      *

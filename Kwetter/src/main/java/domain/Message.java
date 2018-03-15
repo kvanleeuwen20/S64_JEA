@@ -1,5 +1,8 @@
 package domain;
 
+import sun.misc.resources.Messages_sv;
+
+import javax.persistence.*;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,7 +10,27 @@ import java.util.Set;
 /**
  * A message which is posted by a user on the application.
  */
+@Entity
+@Table(name = "Message")
+@NamedQueries({
+        @NamedQuery(
+                name = "Message.findAllFromUser",
+                query = "SELECT m FROM MESSAGE m WHERE m.poster.id = :userId"
+        ),
+        @NamedQuery(
+                name = "Post.findAllWhereContentLike",
+                query = "SELECT m FROM MESSAGE m WHERE LOWER(m.content) LIKE %LOWER(:content)% "
+        )
+})
 public class Message {
+
+    /**
+     * Unique identifier for a message.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     /**
      * The limit on the amount of characters which can go into a single message.
      */
@@ -16,6 +39,7 @@ public class Message {
     /**
      * The actual message text. Can not be an empty String and can have a maximum of 140 characters.
      */
+    @Column(length = Message.CHARACTERLIMIT)
     private String content;
 
     /**
@@ -36,6 +60,7 @@ public class Message {
     /**
      * The user who posted the message
      */
+    @ManyToOne
     private User poster;
 
     /**
@@ -76,6 +101,24 @@ public class Message {
         this.hashtags = new HashSet<>();
         this.mentions = new HashSet<>();
         this.likes = new HashSet<>();
+    }
+
+    /**
+     * Get the id of the message.
+     *
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Set the id of the message.
+     *
+     * @param id new id
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**

@@ -2,9 +2,19 @@ package dao;
 
 import domain.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Set;
 
 public class UserDAOJPAImpl implements UserDAO {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public UserDAOJPAImpl() {
+
+    }
+
     /**
      * Gets all the users of the application.
      *
