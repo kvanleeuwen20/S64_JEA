@@ -107,126 +107,6 @@ public class User {
     }
 
     /**
-     * Get email of user.
-     * @return email address.
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Set email address. Cannot be an empty String.
-     * @param email new email address
-     */
-    public void setEmail(String email) {
-        if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException(("Email must be a non-empty String."));
-        }
-
-        this.email = email;
-    }
-
-    /**
-     * Get password of user.
-     * @return password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Set password of user. Cannot be an empty String.
-     * @param password new password
-     */
-    public void setPassword(String password) {
-        if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException(("Password must be a non-empty String."));
-        }
-
-        this.password = password;
-    }
-
-    /**
-     * Get website of user.
-     * @return website
-     */
-    public String getWebsite() {
-        return website;
-    }
-
-    /**
-     * Set website of user.
-     * @param website the new website. Can be an empty String.
-     */
-    public void setWebsite(String website) {
-        if (website == null) {
-            throw new IllegalArgumentException(("Website cannot be null."));
-        }
-
-        this.website = website;
-    }
-
-    /**
-     * Get username of user.
-     * @return username
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * Set username of user. Cannot be an empty String.
-     * @param username new username.
-     */
-    public void setUsername(String username) {
-        if (username == null || username.isEmpty()) {
-            throw new IllegalArgumentException(("Username must be a non-empty String."));
-        }
-
-        this.username = username;
-    }
-
-    /**
-     * Get name of user.
-     * @return real name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Set name of user.
-     * @param name new name. Can be an empty String.
-     */
-    public void setName(String name) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException(("Name must be a non-empty String."));
-        }
-
-        this.name = name;
-    }
-
-    /**
-     * Get location of user.
-     * @return location
-     */
-    public String getLocation() {
-        return location;
-    }
-
-    /**
-     * Set location of user.
-     * @param location new location. Can be an empty String.
-     */
-    public void setLocation(String location) {
-        if (location == null) {
-            throw new IllegalArgumentException(("Location cannot be null."));
-        }
-
-        this.location = location;
-    }
-
-    /**
      * Get biography of the user.
      * @return bio
      */
@@ -235,51 +115,11 @@ public class User {
     }
 
     /**
-     * Set biography of user.
-     * @param bio new bio. Can be an empty String.
+     * Get email of user.
+     * @return email address.
      */
-    public void setBio(String bio) {
-        if (bio == null) {
-            throw new IllegalArgumentException(("Bio cannot be null."));
-        }
-
-        this.bio = bio;
-    }
-
-    /**
-     * Get path to the profile picture.
-     * @return profile picture path
-     */
-    public String getProfilePicturePath() {
-        return profilePicturePath;
-    }
-
-    /**
-     * Set path to the profile picture.
-     * @param profilePicturePath new profile picture path. Can be an empty String.
-     */
-    public void setProfilePicturePath(String profilePicturePath) {
-        if (profilePicturePath == null) {
-            throw new IllegalArgumentException(("ProfilePicturePath cannot be null."));
-        }
-
-        this.profilePicturePath = profilePicturePath;
-    }
-
-    /**
-     * Get role of the user.
-     * @return role of the user as an enum value.
-     */
-    public UserRole getRole() {
-        return this.role;
-    }
-
-    /**
-     * Set role of the user.
-     * @param role the new role as an enum value.
-     */
-    public void setRole(UserRole role) {
-        this.role = role;
+    public String getEmail() {
+        return email;
     }
 
     /**
@@ -305,6 +145,14 @@ public class User {
     }
 
     /**
+     * Get location of user.
+     * @return location
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
      * Return a copy of the list of messages posted by this user.
      *
      * @return messages
@@ -313,6 +161,181 @@ public class User {
         List<Message> returnList = new ArrayList<Message>();
         Collections.copy(returnList, this.messages);
         return returnList;
+    }
+
+    /**
+     * Get name of user.
+     * @return real name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Get password of user.
+     * @return password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Get path to the profile picture.
+     * @return profile picture path
+     */
+    public String getProfilePicturePath() {
+        return profilePicturePath;
+    }
+
+    /**
+     * Get role of the user.
+     * @return role of the user as an enum value.
+     */
+    public UserRole getRole() {
+        return this.role;
+    }
+
+    /**
+     * Get username of user.
+     * @return username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Get website of user.
+     * @return website
+     */
+    public String getWebsite() {
+        return website;
+    }
+
+    /**
+     * Set biography of user.
+     * @param bio new bio. Can be an empty String.
+     */
+    public void setBio(String bio) {
+        if (bio == null) {
+            throw new IllegalArgumentException(("Bio cannot be null."));
+        }
+
+        this.bio = bio;
+    }
+
+    /**
+     * Set email address. Cannot be an empty String.
+     * @param email new email address
+     */
+    public void setEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Email must be a non-empty String.");
+        }
+
+        this.email = email;
+    }
+
+    /**
+     * Add the userID of a follower to the list of followers
+     * @param followerID The userID of the person following you.
+     */
+    public void setFollower(int followerID) {
+        this.followers.add(followerID);
+    }
+
+    /**
+     * Add an User to list that is being followed.
+     * @param following The user added to the list.
+     */
+    private void setFollowing(User following){
+        if (following == null) {
+            throw new IllegalArgumentException("following cannot be null");
+        }
+
+        this.following.add(following);
+    }
+
+    /**
+     * Set location of user.
+     * @param location new location. Can be an empty String.
+     */
+    public void setLocation(String location) {
+        if (location == null) {
+            throw new IllegalArgumentException(("Location cannot be null."));
+        }
+
+        this.location = location;
+    }
+
+    /**
+     * Set name of user.
+     * @param name new name. Can be an empty String.
+     */
+    public void setName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException(("Name must be a non-empty String."));
+        }
+
+        this.name = name;
+    }
+
+    /**
+     * Set password of user. Cannot be an empty String.
+     * @param password new password
+     */
+    public void setPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException(("Password must be a non-empty String."));
+        }
+
+        this.password = password;
+    }
+
+    /**
+     * Set path to the profile picture.
+     * @param profilePicturePath new profile picture path. Can be an empty String.
+     */
+    public void setProfilePicturePath(String profilePicturePath) {
+        if (profilePicturePath == null) {
+            throw new IllegalArgumentException(("ProfilePicturePath cannot be null."));
+        }
+
+        this.profilePicturePath = profilePicturePath;
+    }
+
+    /**
+     * Set role of the user.
+     * @param role the new role as an enum value.
+     */
+    public void setRole(UserRole role) {
+        if (role == null) {
+            throw new IllegalArgumentException("Role cannot be null.");
+        }
+        this.role = role;
+    }
+
+    /**
+     * Set username of user. Cannot be an empty String.
+     * @param username new username.
+     */
+    public void setUsername(String username) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException(("Username must be a non-empty String."));
+        }
+
+        this.username = username;
+    }
+
+    /**
+     * Set website of user.
+     * @param website the new website. Can be an empty String.
+     */
+    public void setWebsite(String website) {
+        if (website == null) {
+            throw new IllegalArgumentException(("Website cannot be null."));
+        }
+
+        this.website = website;
     }
 
     /**
@@ -332,6 +355,7 @@ public class User {
      */
     public void follow(User toFollow) {
         throw new UnsupportedOperationException();
+        // NOTE: don't forget to notify the other user that you became a follower.
     }
 
     /**
