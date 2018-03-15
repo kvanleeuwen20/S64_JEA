@@ -14,6 +14,10 @@ import java.util.Set;
 @Table(name = "Message")
 @NamedQueries({
         @NamedQuery(
+                name = "Message.findAll",
+                query = "SELECT m FROM MESSAGE m"
+        ),
+        @NamedQuery(
                 name = "Message.findAllFromUser",
                 query = "SELECT m FROM MESSAGE m WHERE m.poster.id = :userId"
         ),

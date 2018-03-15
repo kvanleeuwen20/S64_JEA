@@ -4,7 +4,7 @@ import domain.Message;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Set;
+import java.util.List;
 
 public class MessageDAOJPAImpl implements MessageDAO {
 
@@ -12,7 +12,7 @@ public class MessageDAOJPAImpl implements MessageDAO {
     private EntityManager entityManager;
 
     public MessageDAOJPAImpl(){
-        
+
     }
 
     /**
@@ -21,8 +21,38 @@ public class MessageDAOJPAImpl implements MessageDAO {
      * @return a set of all the messages.
      */
     @Override
-    public Set<Message> getAllMessages() {
-        return null;
+    public List<Message> getAllMessages() {
+        return entityManager
+                .createNamedQuery("Message.findAll", Message.class)
+                .getResultList();
+    }
+
+    /**
+     * Find all messages from a given user.
+     *
+     * @param id the id of the message.
+     * @return all found messages. If none are found, returns an empty List.
+     */
+    @Override
+    public List<Message> findMessagesFromUserId(int id) {
+        return entityManager
+                .createNamedQuery("Message.findAllFromUser", Message.class)
+                .setParameter("userId", id)
+                .getResultList();
+    }
+
+    /**
+     * Finds all messages which match the given content.
+     *
+     * @param content the content of the message.
+     * @return all found messages. If none are found, returns an empty List.
+     */
+    @Override
+    public List<Message> findMessagesWhereContentLike(String content) {
+        return entityManager
+                .createNamedQuery("Message.findAllWhereContentLike", Message.class)
+                .setParameter("content", content)
+                .getResultList();
     }
 
     /**

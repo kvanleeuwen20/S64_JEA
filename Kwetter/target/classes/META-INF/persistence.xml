@@ -7,6 +7,8 @@
 
     <persistence-unit name="KwetterPU">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>domain.User</class>
+        <class>domain.Message</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://192.168.24.189/jpadb" />
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />

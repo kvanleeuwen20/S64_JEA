@@ -2,40 +2,59 @@ package dao;
 
 import domain.User;
 
-import java.util.Set;
+import javax.ejb.Stateless;
+import java.util.List;
 
 /**
  * DAO interface which manages all the users.
  */
+@Stateless
 public interface UserDAO {
 
     /**
      * Gets all the users of the application.
      *
-     * @return a set of all the users.
+     * @return a list of all the users.
      */
-    Set<User> getAlLUsers();
+    List<User> getAlLUsers();
+
+    /**
+     * Get user by the following login credentials.
+     *
+     * @param email the email of the user
+     * @param password the password of the user
+     * @return the user if one is found. Else null.
+     */
+    User findUserByLoginCredential(String email, String password);
+
+    /**
+     * Find user by the given username.
+     *
+     * @param username the username of the user to find.
+     * @return the user if found. Else null.
+     */
+    User findUserByUsername(String username);
 
     /**
      * Add a user to the list of users.
      *
      * @param user the user to add to the list of users.
-     * @return a boolean indicating whether the user was added.
+     * @return a the users' new id.
      */
-    boolean addUser(User user);
+    int addUser(User user);
 
     /**
      * Remove a user from the list of users.
      *
-     * @param user the user to remove from the list of users.
+     * @param id the id of the user to remove from the list of users.
      */
-    void removeUser(User user);
+    void removeUser(int id);
 
     /**
      * Update the information of a user.
      *
      * @param user the user to update and its updated details.
-     * @return a boolean indicating whether the update was succesful.
+     * @return the updated user if successful, else null.
      */
-    boolean updateUser(User user);
+    User updateUser(User user);
 }

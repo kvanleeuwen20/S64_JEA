@@ -16,7 +16,7 @@ import java.util.List;
         @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
         @NamedQuery(
                 name = "User.authenticate",
-                query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"
+                query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password"
         )
 })
 public class User implements Serializable{
@@ -125,6 +125,14 @@ public class User implements Serializable{
         this.following = new ArrayList<>();
 
         this.messages = new ArrayList<>();
+    }
+
+    /**
+     * Get id of user.
+     * @return id.
+     */
+    public int getID(){
+        return this.id;
     }
 
     /**
