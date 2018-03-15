@@ -321,7 +321,7 @@ public class User {
      * @return a boolean. When true the usr is a moderator.
      */
     public boolean isModerator() {
-        return this instanceof Moderator;
+        return this.getRole() == UserRole.ADMINISTRATOR;
     }
 
     /**
