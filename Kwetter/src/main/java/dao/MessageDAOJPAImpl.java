@@ -59,31 +59,35 @@ public class MessageDAOJPAImpl implements MessageDAO {
      * Add a user to the list of messages.
      *
      * @param message the message to add.
-     * @return a boolean indicating whether the message was added.
+     * @return the id of the message added. If failed, return -1.
      */
     @Override
-    public boolean addMessage(Message message) {
-        return false;
+    public int addMessage(Message message) {
+        entityManager.persist(message);
+
+        return message.getId();
     }
 
     /**
      * Remove a message from the list of messages.
      *
-     * @param message the message to remove.
+     * @param id the id of the message to remove.
      */
     @Override
-    public void removeMessage(Message message) {
-
+    public void removeMessage(int id) {
+        entityManager.remove(entityManager.find(Message.class, id));
     }
 
     /**
      * Update the information of a message.
      *
      * @param message the message to update with ita updated details.
-     * @return a boolean indicating whether the update was succesful.
+     * @return the updated Message. Null if failed.
      */
     @Override
-    public boolean updateMessage(Message message) {
-        return false;
+    public Message updateMessage(Message message) {
+        entityManager.merge(message);
+
+        return message;
     }
 }

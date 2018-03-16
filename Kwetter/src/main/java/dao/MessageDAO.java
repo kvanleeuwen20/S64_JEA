@@ -37,22 +37,22 @@ public interface MessageDAO {
      * Add a user to the list of messages.
      *
      * @param message the message to add.
-     * @return a boolean indicating whether the message was added.
+     * @return the id of the message added. If failed, return -1.
      */
-    boolean addMessage(Message message);
+    int addMessage(Message message);
 
     /**
      * Remove a message from the list of messages.
      *
-     * @param message the message to remove.
+     * @param id the id of the message to remove.
      */
-    void removeMessage(Message message);
+    void removeMessage(int id);
 
     /**
      * Update the information of a message.
      *
      * @param message the message to update with ita updated details.
-     * @return a boolean indicating whether the update was succesful.
+     * @return the updated Message. Null if failed.
      */
-    boolean updateMessage(Message message);
+    Message updateMessage(Message message);
 }

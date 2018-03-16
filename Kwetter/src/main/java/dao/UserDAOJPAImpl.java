@@ -1,11 +1,14 @@
 package dao;
 
 import domain.User;
+import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
+import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Set;
 
 public class UserDAOJPAImpl implements UserDAO {
 
@@ -13,7 +16,6 @@ public class UserDAOJPAImpl implements UserDAO {
     private EntityManager entityManager;
 
     public UserDAOJPAImpl() {
-
     }
 
     /**

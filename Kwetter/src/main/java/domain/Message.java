@@ -1,7 +1,5 @@
 package domain;
 
-import sun.misc.resources.Messages_sv;
-
 import javax.persistence.*;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -14,16 +12,12 @@ import java.util.Set;
 @Table(name = "Message")
 @NamedQueries({
         @NamedQuery(
-                name = "Message.findAll",
-                query = "SELECT m FROM MESSAGE m"
+                name = "Mmssage.findAllFromUser",
+                query = "SELECT m FROM Message m WHERE m.poster.id = :userId"
         ),
         @NamedQuery(
-                name = "Message.findAllFromUser",
-                query = "SELECT m FROM MESSAGE m WHERE m.poster.id = :userId"
-        ),
-        @NamedQuery(
-                name = "Post.findAllWhereContentLike",
-                query = "SELECT m FROM MESSAGE m WHERE LOWER(m.content) LIKE %LOWER(:content)% "
+                name = "Message.findAllWhereContentLike",
+                query = "SELECT m FROM Message m WHERE LOWER(m.content) LIKE LOWER(:content) "
         )
 })
 public class Message {
@@ -43,34 +37,39 @@ public class Message {
     /**
      * The actual message text. Can not be an empty String and can have a maximum of 140 characters.
      */
-    @Column(length = Message.CHARACTERLIMIT)
     private String content;
 
     /**
      * Set of HashTags which were placed in the message. One hashtag can only be added once.
      */
+    @Transient
     private Set<String> hashtags;
 
     /**
      * Set of liked which were handed out by Users. One User can only like a message once.
      */
+    @OneToMany
     private Set<User> likes;
 
     /**
      * Set of Users who are mentioned in the message. One user can only be mentioned once.
      */
+    @OneToMany
     private Set<User> mentions;
 
     /**
      * The user who posted the message
      */
-    @ManyToOne
     private User poster;
 
     /**
      * The time the message was posted.
      */
     private GregorianCalendar postTime;
+
+    public Message() {
+
+    }
 
     /**
      * Create a new message.
@@ -110,17 +109,12 @@ public class Message {
     /**
      * Get the id of the message.
      *
-     * @return id
+     * @return
      */
     public int getId() {
         return id;
     }
 
-    /**
-     * Set the id of the message.
-     *
-     * @param id new id
-     */
     public void setId(int id) {
         this.id = id;
     }

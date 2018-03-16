@@ -83,6 +83,10 @@ public class User implements Serializable{
     @OneToMany
     protected List<Message> messages;
 
+    public User(){
+
+    }
+
     /**
      * Constructor for registering a new user.
      *
