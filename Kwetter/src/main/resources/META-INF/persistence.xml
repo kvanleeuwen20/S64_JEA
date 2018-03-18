@@ -6,7 +6,7 @@
              version="2.0">
 
     <persistence-unit name="KwetterPU">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>domain.User</class>
         <class>domain.Message</class>
         <properties>
@@ -17,7 +17,7 @@
             <property name="hibernate.archive.autodetection" value="class" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
-            <property name="hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
     </persistence-unit>
 </persistence>
