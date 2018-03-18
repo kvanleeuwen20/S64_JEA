@@ -107,19 +107,6 @@ public class Message {
     }
 
     /**
-     * Get the id of the message.
-     *
-     * @return
-     */
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
      * Get the content of the message.
      *
      * @return content
@@ -135,6 +122,15 @@ public class Message {
      */
     public Set<String> getHashtags() {
         return new HashSet<>(this.hashtags);
+    }
+
+    /**
+     * Get the id of the message.
+     *
+     * @return the ID.
+     */
+    public int getId() {
+        return id;
     }
 
     /**

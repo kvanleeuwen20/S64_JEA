@@ -84,6 +84,14 @@ public class MessageTest {
     }
 
     /**
+     * {@link Message#Message()}
+     */
+    @Test
+    public void test_constructor_JPA() {
+        new Message();
+    }
+
+    /**
      * {@link Message#Message(String, GregorianCalendar, User)}
      */
     @Test
@@ -178,6 +186,15 @@ public class MessageTest {
     @Test
     public void test_getHashtags_right_filled() {
         // TODO: add test after the hashtag functionality has been added.
+    }
+
+    /**
+     * {@link Message#getId()}
+     */
+    @Test
+    public void test_getId_right() {
+        // This should be 0 as the Id has not yet been generated in the domain.
+        Assert.assertEquals(0, this.testMessage.getId());
     }
 
     /**

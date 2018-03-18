@@ -86,6 +86,14 @@ public class UserTest {
     }
 
     /**
+     * {@link User#User()}
+     */
+    @Test
+    public void test_constructor_JPA() {
+        new User();
+    }
+
+    /**
      * {@link User#User(String, String, String, String, String)}
      */
     @Test
@@ -206,6 +214,15 @@ public class UserTest {
     @Test
     public void test_getFollowing_rightFilled() {
         // TODO: Add test with following.
+    }
+
+    /**
+     * {@link User#getID()}
+     */
+    @Test
+    public void test_getID_right() {
+        // ID should be 0 because it is not instantiated in the domain.
+        Assert.assertEquals(0, this.testUser.getID());
     }
 
     /**
@@ -340,7 +357,7 @@ public class UserTest {
     }
 
     /**
-     * {@link User#setFollower(int)}
+     * {@link User#setFollower(User)}
      */
     @Test
     public void test_setFollower_right() {
