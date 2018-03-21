@@ -1,3 +1,55 @@
+POST http://localhost:8080/users/follow/PimJan/Jehama
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-03-19T030437.404.html
+
+###
+
+POST http://localhost:8080/users/follow/{username}/{otherUsername}?username=Jehama&otherUsername=PimJan
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/users/follow/Jehama/PimJan?username=Jehama&otherUsername=PimJan
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-03-19T030404.404.html
+
+###
+
+POST http://localhost:8080/Kwetter/api?username=Jehama&otherUsername=PimJan
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-03-19T030342.404.html
+
+###
+
+POST http://localhost:8080/users/follow/Jehama/PimJan?username=Jehama&otherUsername=PimJan
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-03-19T030334.404.html
+
+###
+
+POST http://localhost:8080/users/follow/{username}/{otherUsername}?username=Jehama&otherUsername=PimJan
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/Kwetter/api?username=Jehama&otherUsername=PimJan
+Accept: */*
+Cache-Control: no-cache
+
+<> 2018-03-19T030307.404.html
+
+###
+
 GET http://localhost:8080/api/users/0
 Accept: */*
 Cache-Control: no-cache

@@ -54,12 +54,13 @@ public class Message {
     /**
      * Set of Users who are mentioned in the message. One user can only be mentioned once.
      */
-    @OneToMany
+    @ManyToMany
     private Set<User> mentions;
 
     /**
      * The user who posted the message
      */
+    @ManyToOne
     private User poster;
 
     /**

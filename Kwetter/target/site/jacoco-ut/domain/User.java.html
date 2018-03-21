@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kwetter</a> &gt; <a href="index.source.html" class="el_package">domain</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package domain;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * A user of the application who has created an account.
+ */
+@Entity(name = &quot;App_User&quot;)
+@Table(name = &quot;App_User&quot;)
+@NamedQueries({
+        @NamedQuery(name = &quot;App_User.findAll&quot;, query = &quot;SELECT u FROM App_User u&quot;),
+        @NamedQuery(name = &quot;App_User.findByUsername&quot;, query = &quot;SELECT u FROM App_User u WHERE u.username = :username&quot;),
+        @NamedQuery(
+                name = &quot;App_User.authenticate&quot;,
+                query = &quot;SELECT u FROM App_User u WHERE u.email = :email AND u.password = :password&quot;
+        )
+})
+public class User implements Serializable{
+
+    /**
+     * Unique identifier of the user.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int id;
+    /**
+     * Email address entered when registering.
+     */
+    @Column(unique = true, nullable = false)
+    protected String email;
+    /**
+     * Password entered when registering.
+     */
+    @Column(nullable = false)
+    protected String password;
+    /**
+     * Display name towards other users. Can also be used for logging in.
+     */
+    @Column(unique = true, nullable = false)
+    protected String username;
+    /**
+     * Real name. Can be an empty String.
+     */
+    protected String name;
+    /**
+     * Website address. Can be an empty String.
+     */
+    protected String website;
+    /**
+     * Location, such as place of residence or country. Can be an empty String.
+     */
+    protected String location;
+    /**
+     * Short biography of the user. Can be an empty String.
+     */
+    protected String bio;
+    /**
+     * Path to the profile picture of the user. Can be an empty String.
+     */
+    protected String profilePicturePath;
+    /**
+     * Role of the user.
+     */
+    @Enumerated(EnumType.STRING)
+    protected UserRole role;
+    /**
+     * List of users which are following this user.
+     */
+    @ManyToMany(mappedBy = &quot;following&quot;, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    protected List&lt;User&gt; followers;
+    /**
+     * List of users which this user is following.
+     */
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    protected List&lt;User&gt; following;
+    /**
+     * List of messages this user has posted.
+     */
+    @OneToMany(mappedBy = &quot;poster&quot;)
+    protected List&lt;Message&gt; messages;
+
+    /**
+     * Empty constructor for JPA
+     */
+<span class="fc" id="L88">    public User(){</span>
+
+<span class="fc" id="L90">    }</span>
+
+    /**
+     * Constructor for registering a new user.
+     *
+     * @param email email address used for login.
+     * @param password password used for login.
+     * @param username display name towards other users.
+     * @param name the real name of the user. Can be an empty String.
+     * @param profilePicturePath path to the profile picture file. Can be an empty String.
+     */
+<span class="fc" id="L101">    public User(String email, String password, String username, String name, String profilePicturePath) {</span>
+<span class="fc bfc" id="L102" title="All 4 branches covered.">        if (email == null || email.isEmpty()) {</span>
+<span class="fc" id="L103">            throw new IllegalArgumentException((&quot;Email must be a non-empty String.&quot;));</span>
+        }
+<span class="fc bfc" id="L105" title="All 4 branches covered.">        if (password == null || password.isEmpty()) {</span>
+<span class="fc" id="L106">            throw new IllegalArgumentException((&quot;Password must be a non-empty String.&quot;));</span>
+        }
+<span class="fc bfc" id="L108" title="All 4 branches covered.">        if (username == null || username.isEmpty()) {</span>
+<span class="fc" id="L109">            throw new IllegalArgumentException((&quot;Username must be a non-empty String.&quot;));</span>
+        }
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        if (name == null) {</span>
+<span class="fc" id="L112">            throw new IllegalArgumentException((&quot;Name cannot be null.&quot;));</span>
+        }
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (profilePicturePath == null) {</span>
+<span class="fc" id="L115">            throw new IllegalArgumentException((&quot;ProfilePicturePath cannot be null.&quot;));</span>
+        }
+
+<span class="fc" id="L118">        this.email = email;</span>
+<span class="fc" id="L119">        this.password = password;</span>
+<span class="fc" id="L120">        this.username = username;</span>
+<span class="fc" id="L121">        this.name = name;</span>
+<span class="fc" id="L122">        this.profilePicturePath = profilePicturePath;</span>
+
+<span class="fc" id="L124">        this.website = &quot;&quot;;</span>
+<span class="fc" id="L125">        this.location = &quot;&quot;;</span>
+<span class="fc" id="L126">        this.bio = &quot;&quot;;</span>
+
+<span class="fc" id="L128">        this.role = UserRole.USER;</span>
+
+<span class="fc" id="L130">        this.followers = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L131">        this.following = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L133">        this.messages = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L134">    }</span>
+
+    /**
+     * Get biography of the user.
+     * @return bio
+     */
+    public String getBio() {
+<span class="fc" id="L141">        return bio;</span>
+    }
+
+    /**
+     * Get email of user.
+     * @return email address.
+     */
+    public String getEmail() {
+<span class="fc" id="L149">        return email;</span>
+    }
+
+    /**
+     * Return a copy of the list of followers.
+     *
+     * @return followers
+     */
+    public List&lt;User&gt; getFollowers() {
+<span class="fc" id="L158">        return new ArrayList&lt;&gt;(this.followers);</span>
+    }
+
+    /**
+     * Return a copy of the list of following.
+     *
+     * @return following
+     */
+    public List&lt;User&gt; getFollowing() {
+<span class="fc" id="L167">        return new ArrayList&lt;&gt;(this.following);</span>
+    }
+
+    /**
+     * Get id of user.
+     * @return id.
+     */
+    public int getID() {
+<span class="fc" id="L175">        return this.id;</span>
+    }
+
+    /**
+     * Get location of user.
+     * @return location
+     */
+    public String getLocation() {
+<span class="fc" id="L183">        return location;</span>
+    }
+
+    /**
+     * Return a copy of the list of messages posted by this user.
+     *
+     * @return messages
+     */
+    public List&lt;Message&gt; getMessages() {
+<span class="fc" id="L192">        return new ArrayList&lt;&gt;(this.messages);</span>
+    }
+
+    /**
+     * Get name of user.
+     * @return real name
+     */
+    public String getName() {
+<span class="fc" id="L200">        return name;</span>
+    }
+
+    /**
+     * Get password of user.
+     * @return password
+     */
+    public String getPassword() {
+<span class="fc" id="L208">        return password;</span>
+    }
+
+    /**
+     * Get path to the profile picture.
+     * @return profile picture path
+     */
+    public String getProfilePicturePath() {
+<span class="fc" id="L216">        return profilePicturePath;</span>
+    }
+
+    /**
+     * Get role of the user.
+     * @return role of the user as an enum value.
+     */
+    public UserRole getRole() {
+<span class="fc" id="L224">        return this.role;</span>
+    }
+
+    /**
+     * Get username of user.
+     * @return username
+     */
+    public String getUsername() {
+<span class="fc" id="L232">        return username;</span>
+    }
+
+    /**
+     * Get website of user.
+     * @return website
+     */
+    public String getWebsite() {
+<span class="fc" id="L240">        return website;</span>
+    }
+
+    /**
+     * Set biography of user.
+     * @param bio new bio. Can be an empty String.
+     */
+    public void setBio(String bio) {
+<span class="fc bfc" id="L248" title="All 2 branches covered.">        if (bio == null) {</span>
+<span class="fc" id="L249">            throw new IllegalArgumentException((&quot;Bio cannot be null.&quot;));</span>
+        }
+
+<span class="fc" id="L252">        this.bio = bio;</span>
+<span class="fc" id="L253">    }</span>
+
+    /**
+     * Set email address. Cannot be an empty String.
+     * @param email new email address
+     */
+    public void setEmail(String email) {
+<span class="fc bfc" id="L260" title="All 4 branches covered.">        if (email == null || email.isEmpty()) {</span>
+<span class="fc" id="L261">            throw new IllegalArgumentException(&quot;Email must be a non-empty String.&quot;);</span>
+        }
+
+<span class="fc" id="L264">        this.email = email;</span>
+<span class="fc" id="L265">    }</span>
+
+    /**
+     * Add the userID of a follower to the list of followers
+     * @param follower The user account of the person following you.
+     */
+    public void setFollower(User follower) {
+<span class="nc" id="L272">        this.followers.add(follower);</span>
+<span class="nc" id="L273">    }</span>
+
+    /**
+     * Add an User to list that is being followed.
+     * @param following The user added to the list.
+     */
+    private void setFollowing(User following){
+<span class="nc bnc" id="L280" title="All 2 branches missed.">        if (following == null) {</span>
+<span class="nc" id="L281">            throw new IllegalArgumentException(&quot;following cannot be null&quot;);</span>
+        }
+
+<span class="nc" id="L284">        this.following.add(following);</span>
+<span class="nc" id="L285">    }</span>
+
+    /**
+     * Set location of user.
+     * @param location new location. Can be an empty String.
+     */
+    public void setLocation(String location) {
+<span class="fc bfc" id="L292" title="All 2 branches covered.">        if (location == null) {</span>
+<span class="fc" id="L293">            throw new IllegalArgumentException((&quot;Location cannot be null.&quot;));</span>
+        }
+
+<span class="fc" id="L296">        this.location = location;</span>
+<span class="fc" id="L297">    }</span>
+
+    /**
+     * Set name of user.
+     * @param name new name. Can be an empty String.
+     */
+    public void setName(String name) {
+<span class="fc bfc" id="L304" title="All 4 branches covered.">        if (name == null || name.isEmpty()) {</span>
+<span class="fc" id="L305">            throw new IllegalArgumentException((&quot;Name must be a non-empty String.&quot;));</span>
+        }
+
+<span class="fc" id="L308">        this.name = name;</span>
+<span class="fc" id="L309">    }</span>
+
+    /**
+     * Set password of user. Cannot be an empty String.
+     * @param password new password
+     */
+    public void setPassword(String password) {
+<span class="fc bfc" id="L316" title="All 4 branches covered.">        if (password == null || password.isEmpty()) {</span>
+<span class="fc" id="L317">            throw new IllegalArgumentException((&quot;Password must be a non-empty String.&quot;));</span>
+        }
+
+<span class="fc" id="L320">        this.password = password;</span>
+<span class="fc" id="L321">    }</span>
+
+    /**
+     * Set path to the profile picture.
+     * @param profilePicturePath new profile picture path. Can be an empty String.
+     */
+    public void setProfilePicturePath(String profilePicturePath) {
+<span class="fc bfc" id="L328" title="All 2 branches covered.">        if (profilePicturePath == null) {</span>
+<span class="fc" id="L329">            throw new IllegalArgumentException((&quot;ProfilePicturePath cannot be null.&quot;));</span>
+        }
+
+<span class="fc" id="L332">        this.profilePicturePath = profilePicturePath;</span>
+<span class="fc" id="L333">    }</span>
+
+    /**
+     * Set role of the user.
+     * @param role the new role as an enum value.
+     */
+    public void setRole(UserRole role) {
+<span class="fc bfc" id="L340" title="All 2 branches covered.">        if (role == null) {</span>
+<span class="fc" id="L341">            throw new IllegalArgumentException(&quot;Role cannot be null.&quot;);</span>
+        }
+<span class="fc" id="L343">        this.role = role;</span>
+<span class="fc" id="L344">    }</span>
+
+    /**
+     * Set username of user. Cannot be an empty String.
+     * @param username new username.
+     */
+    public void setUsername(String username) {
+<span class="fc bfc" id="L351" title="All 4 branches covered.">        if (username == null || username.isEmpty()) {</span>
+<span class="fc" id="L352">            throw new IllegalArgumentException((&quot;Username must be a non-empty String.&quot;));</span>
+        }
+
+<span class="fc" id="L355">        this.username = username;</span>
+<span class="fc" id="L356">    }</span>
+
+    /**
+     * Set website of user.
+     * @param website the new website. Can be an empty String.
+     */
+    public void setWebsite(String website) {
+<span class="fc bfc" id="L363" title="All 2 branches covered.">        if (website == null) {</span>
+<span class="fc" id="L364">            throw new IllegalArgumentException((&quot;Website cannot be null.&quot;));</span>
+        }
+
+<span class="fc" id="L367">        this.website = website;</span>
+<span class="fc" id="L368">    }</span>
+
+    /**
+     * Check if this user is a moderator.
+     *
+     * @return a boolean. When true the usr is a moderator.
+     */
+    public boolean isModerator() {
+<span class="fc bfc" id="L376" title="All 2 branches covered.">        return this.getRole() == UserRole.ADMINISTRATOR;</span>
+    }
+
+    /**
+     * Start following this user.
+     *
+     * @param toFollow the user to followOther. When this user is already following the toFollow, nothing happens.
+     *                 If the user is trying to follow himself, an exception is thrown.
+     */
+    public void followOther(User toFollow) {
+<span class="nc bnc" id="L386" title="All 2 branches missed.">        if (toFollow == null) {</span>
+<span class="nc" id="L387">            throw new IllegalArgumentException(&quot;toFollow cannot be null.&quot;);</span>
+        }
+<span class="nc bnc" id="L389" title="All 2 branches missed.">        if (toFollow.id == this.id) {</span>
+<span class="nc" id="L390">            throw new IllegalArgumentException(&quot;User cannot follow himself.&quot;);</span>
+        }
+
+<span class="nc bnc" id="L393" title="All 2 branches missed.">        if (!this.following.contains(toFollow)) {</span>
+<span class="nc" id="L394">            this.following.add(toFollow);</span>
+<span class="nc" id="L395">            toFollow.getFollowed(this);</span>
+        }
+<span class="nc" id="L397">    }</span>
+
+    /**
+     * Stop following this user.
+     *
+     * @param toUnfollow the user to unfollowOther. If this user is not following the toUnfollow, nothing happens.
+     */
+    public void unfollowOther(User toUnfollow) {
+<span class="nc bnc" id="L405" title="All 2 branches missed.">        if (toUnfollow == null) {</span>
+<span class="nc" id="L406">            throw new IllegalArgumentException(&quot;toUnfollow cannot be null.&quot;);</span>
+        }
+
+<span class="nc" id="L409">        this.following.remove(toUnfollow);</span>
+<span class="nc" id="L410">        toUnfollow.getUnfollowed(this);</span>
+<span class="nc" id="L411">    }</span>
+
+    private void getFollowed(User follower) {
+<span class="nc bnc" id="L414" title="All 2 branches missed.">        if (follower == null) {</span>
+<span class="nc" id="L415">            throw new IllegalArgumentException(&quot;follower cannot be null.&quot;);</span>
+        }
+
+<span class="nc bnc" id="L418" title="All 2 branches missed.">        if (follower.id == this.id) {</span>
+<span class="nc" id="L419">            throw new IllegalArgumentException(&quot;User cannot follow himself.&quot;);</span>
+        }
+
+<span class="nc bnc" id="L422" title="All 2 branches missed.">        if (!this.followers.contains(follower)) {</span>
+<span class="nc" id="L423">            this.followers.add(follower);</span>
+        }
+
+<span class="nc" id="L426">    }</span>
+
+    private void getUnfollowed(User unfollower) {
+<span class="nc bnc" id="L429" title="All 2 branches missed.">        if (unfollower == null) {</span>
+<span class="nc" id="L430">            throw new IllegalArgumentException(&quot;unfollower cannot be null.&quot;);</span>
+        }
+
+<span class="nc" id="L433">        this.followers.remove(unfollower);</span>
+<span class="nc" id="L434">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

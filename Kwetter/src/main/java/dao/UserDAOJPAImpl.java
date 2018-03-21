@@ -1,6 +1,7 @@
 package dao;
 
 import domain.User;
+import org.hibernate.Transaction;
 import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
 import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
 
@@ -26,7 +27,7 @@ public class UserDAOJPAImpl implements UserDAO {
     @Override
     public List<User> getAlLUsers() {
         return entityManager
-                .createNamedQuery("User.findAll", User.class)
+                .createNamedQuery("App_User.findAll", User.class)
                 .getResultList();
     }
 
@@ -40,7 +41,7 @@ public class UserDAOJPAImpl implements UserDAO {
     @Override
     public User findUserByLoginCredential(String email, String password) {
         return entityManager
-                .createNamedQuery("User.authenticate", User.class)
+                .createNamedQuery("App_User.authenticate", User.class)
                 .setParameter("email", email)
                 .setParameter("password", password)
                 .getSingleResult();
@@ -55,7 +56,7 @@ public class UserDAOJPAImpl implements UserDAO {
     @Override
     public User findUserByUsername(String username) {
         return entityManager
-                .createNamedQuery("User.findByUsername", User.class)
+                .createNamedQuery("App_User.findByUsername", User.class)
                 .setParameter("username", username)
                 .getSingleResult();
     }
@@ -90,8 +91,7 @@ public class UserDAOJPAImpl implements UserDAO {
      */
     @Override
     public User updateUser(User user) {
-        entityManager.merge(user);
-
-        return user;
+        User userObject = entityManager.find(User.class, user.getID());
+        return entityManager.merge(user);
     }
 }

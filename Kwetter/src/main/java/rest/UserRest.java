@@ -28,6 +28,7 @@ public class UserRest {
      * @return the list of all users in JSON format
      */
     @GET
+    @Path("/")
     @Produces({APPLICATION_JSON})
     public List<UserDTO> getUsers() {
         return userService.getUsers().stream().map(UserDTO::fromUser).collect(Collectors.toList());
@@ -131,33 +132,37 @@ public class UserRest {
     }
 
     /**
-     * Route to add a new follow relation in between two users
+     * Route to add a new followOther relation in between two users
      *
-     * @param username      the username of the user who is gonna follow someone else
+     * @param username      the username of the user who is gonna followOther someone else
      * @param otherUsername the username of the user who is going to be followed
      */
-    @POST
-    @Path("/follow/{username}/{otherUsername}")
+    @GET
+    @Path("/followOther/{username}/{otherUsername}")
     public void addFollower(@PathParam("username") String username, @PathParam("otherUsername") String otherUsername) {
         User user1 = userService.getUserByUsername(username);
         User user2 = userService.getUserByUsername(otherUsername);
+
+        System.out.println(user1.getUsername());
+        System.out.println(user2.getUsername());
 
         if (user1 == null || user2 == null) {
             return;
         }
 
-        user1.follow(user2);
+        user1.followOther(user2);
         userService.update(user1);
+        System.out.println(user1);
     }
 
     /**
-     * Route to remove an existing follow relation in between two users
+     * Route to remove an existing followOther relation in between two users
      *
-     * @param username      the username of the user who is gonna un follow someone else
+     * @param username      the username of the user who is gonna un followOther someone else
      * @param otherUsername the username of the user who is going to be un followed
      */
     @DELETE
-    @Path("/follow/{username}/{otherUsername}")
+    @Path("/unfollowOther/{username}/{otherUsername}")
     public void deleteFollower(@PathParam("username") String username, @PathParam("otherUsername") String otherUsername) {
         User user1 = userService.getUserByUsername(username);
         User user2 = userService.getUserByUsername(otherUsername);
@@ -166,7 +171,7 @@ public class UserRest {
             return;
         }
 
-        user1.unfollow(user2);
+        user1.unfollowOther(user2);
         userService.update(user1);
     }
 }

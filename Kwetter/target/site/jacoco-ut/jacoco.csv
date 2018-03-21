@@ -1,0 +1,13 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Kwetter,rest,UserRest,101,0,8,0,26,0,13,0,9,0
+Kwetter,dao,MessageDAOJPAImpl,55,0,0,0,19,0,7,0,7,0
+Kwetter,dao,UserDAOJPAImpl,67,0,0,0,20,0,7,0,7,0
+Kwetter,application,App,3,0,0,0,1,0,1,0,1,0
+Kwetter,service,MessageService,28,0,0,0,8,0,6,0,6,0
+Kwetter,service,UserService,33,0,0,0,9,0,7,0,7,0
+Kwetter,domain,UserRole,0,29,0,0,0,3,0,2,0,2
+Kwetter,domain,Message,16,127,0,18,4,33,4,19,4,10
+Kwetter,domain,User,107,259,18,44,30,76,15,47,6,25
+Kwetter,dto,UserDTO,171,0,0,0,65,0,22,0,22,0
+Kwetter,dto,FollowerDTO,43,0,0,0,18,0,8,0,8,0
+Kwetter,dto,MessageDTO,91,0,0,0,38,0,16,0,16,0

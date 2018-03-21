@@ -3,20 +3,19 @@ package domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * A user of the application who has created an account.
  */
-@Entity
-@Table(name = "User")
+@Entity(name = "App_User")
+@Table(name = "App_User")
 @NamedQueries({
-        @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-        @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
+        @NamedQuery(name = "App_User.findAll", query = "SELECT u FROM App_User u"),
+        @NamedQuery(name = "App_User.findByUsername", query = "SELECT u FROM App_User u WHERE u.username = :username"),
         @NamedQuery(
-                name = "User.authenticate",
-                query = "SELECT u FROM User u WHERE u.email = :email AND u.password = :password"
+                name = "App_User.authenticate",
+                query = "SELECT u FROM App_User u WHERE u.email = :email AND u.password = :password"
         )
 })
 public class User implements Serializable{
@@ -70,19 +69,22 @@ public class User implements Serializable{
     /**
      * List of users which are following this user.
      */
-    @ManyToMany(mappedBy = "following", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "following", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     protected List<User> followers;
     /**
      * List of users which this user is following.
      */
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     protected List<User> following;
     /**
      * List of messages this user has posted.
      */
-    @OneToMany
+    @OneToMany(mappedBy = "poster")
     protected List<Message> messages;
 
+    /**
+     * Empty constructor for JPA
+     */
     public User(){
 
     }
@@ -153,9 +155,7 @@ public class User implements Serializable{
      * @return followers
      */
     public List<User> getFollowers() {
-        List<User> returnList = new ArrayList<>();
-        Collections.copy(returnList, this.followers);
-        return returnList;
+        return new ArrayList<>(this.followers);
     }
 
     /**
@@ -164,9 +164,7 @@ public class User implements Serializable{
      * @return following
      */
     public List<User> getFollowing() {
-        List<User> returnList = new ArrayList<User>();
-        Collections.copy(returnList, this.following);
-        return returnList;
+        return new ArrayList<>(this.following);
     }
 
     /**
@@ -191,9 +189,7 @@ public class User implements Serializable{
      * @return messages
      */
     public List<Message> getMessages() {
-        List<Message> returnList = new ArrayList<Message>();
-        Collections.copy(returnList, this.messages);
-        return returnList;
+        return new ArrayList<>(this.messages);
     }
 
     /**
@@ -383,20 +379,57 @@ public class User implements Serializable{
     /**
      * Start following this user.
      *
-     * @param toFollow the user to follow. When this user is already following the toFollow, nothing happens.
+     * @param toFollow the user to followOther. When this user is already following the toFollow, nothing happens.
      *                 If the user is trying to follow himself, an exception is thrown.
      */
-    public void follow(User toFollow) {
-        throw new UnsupportedOperationException();
-        // NOTE: don't forget to notify the other user that you became a follower.
+    public void followOther(User toFollow) {
+        if (toFollow == null) {
+            throw new IllegalArgumentException("toFollow cannot be null.");
+        }
+        if (toFollow.id == this.id) {
+            throw new IllegalArgumentException("User cannot follow himself.");
+        }
+
+        if (!this.following.contains(toFollow)) {
+            this.following.add(toFollow);
+            toFollow.getFollowed(this);
+        }
     }
 
     /**
      * Stop following this user.
      *
-     * @param toUnfollow the user to unfollow. If this user is not following the toUnfollow, nothing happens.
+     * @param toUnfollow the user to unfollowOther. If this user is not following the toUnfollow, nothing happens.
      */
-    public void unfollow(User toUnfollow) {
-        throw new UnsupportedOperationException();
+    public void unfollowOther(User toUnfollow) {
+        if (toUnfollow == null) {
+            throw new IllegalArgumentException("toUnfollow cannot be null.");
+        }
+
+        this.following.remove(toUnfollow);
+        toUnfollow.getUnfollowed(this);
+    }
+
+    private void getFollowed(User follower) {
+        if (follower == null) {
+            throw new IllegalArgumentException("follower cannot be null.");
+        }
+
+        if (follower.id == this.id) {
+            throw new IllegalArgumentException("User cannot follow himself.");
+        }
+
+        if (!this.followers.contains(follower)) {
+            this.followers.add(follower);
+        }
+
+    }
+
+    private void getUnfollowed(User unfollower) {
+        if (unfollower == null) {
+            throw new IllegalArgumentException("unfollower cannot be null.");
+        }
+
+        this.followers.remove(unfollower);
     }
 }

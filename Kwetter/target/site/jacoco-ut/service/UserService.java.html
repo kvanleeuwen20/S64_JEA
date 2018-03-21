@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kwetter</a> &gt; <a href="index.source.html" class="el_package">service</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package service;
+
+import dao.UserDAO;
+import dao.UserDAOJPAImpl;
+import domain.User;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import java.util.List;
+
+@Stateless
+public class UserService {
+
+    @Inject
+    private UserDAO userDao;
+
+<span class="nc" id="L17">    public UserService() {</span>
+<span class="nc" id="L18">    }</span>
+
+    /**
+     * Gets all users.
+     *
+     * @return a List of all users.
+     */
+    public List&lt;User&gt; getUsers() {
+<span class="nc" id="L26">        return userDao.getAlLUsers();</span>
+    }
+
+    /**
+     * Authenticates a user by the given email and login.
+     *
+     * @param email the email address
+     * @param password the password
+     * @return the user if one is found, else null.
+     */
+    public User authenticate(String email, String password) {
+<span class="nc" id="L37">        return userDao.findUserByLoginCredential(email, password);</span>
+    }
+
+    /**
+     * Get a user by the given username.
+     *
+     * @param username the username
+     * @return the user if found, else null.
+     */
+    public User getUserByUsername(String username) {
+<span class="nc" id="L47">        return userDao.findUserByUsername(username);</span>
+    }
+
+    /**
+     * Registers a new user.
+     *
+     * @param user the user to register
+     * @return the id of the new user. If failed, returns -1.
+     */
+    public int register(User user) {
+<span class="nc" id="L57">        return userDao.addUser(user);</span>
+    }
+
+    /**
+     * Removes an existing user.
+     *
+     * @param id the id of the user to remove.
+     */
+    public void remove(int id) {
+<span class="nc" id="L66">        userDao.removeUser(id);</span>
+<span class="nc" id="L67">    }</span>
+
+    /**
+     * Updates an existing user.
+     *
+     * @param user the user to update and the user's new data.
+     * @return the new user details. Null if failed to update.
+     */
+    public User update(User user) {
+<span class="nc" id="L76">        return userDao.updateUser(user);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

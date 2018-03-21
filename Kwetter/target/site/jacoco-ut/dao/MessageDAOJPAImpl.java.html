@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MessageDAOJPAImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kwetter</a> &gt; <a href="index.source.html" class="el_package">dao</a> &gt; <span class="el_source">MessageDAOJPAImpl.java</span></div><h1>MessageDAOJPAImpl.java</h1><pre class="source lang-java linenums">package dao;
+
+import domain.Message;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
+public class MessageDAOJPAImpl implements MessageDAO {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+<span class="nc" id="L14">    public MessageDAOJPAImpl(){</span>
+
+<span class="nc" id="L16">    }</span>
+
+    /**
+     * Gets all the messages of the application.
+     *
+     * @return a set of all the messages.
+     */
+    @Override
+    public List&lt;Message&gt; getAllMessages() {
+<span class="nc" id="L25">        return entityManager</span>
+<span class="nc" id="L26">                .createNamedQuery(&quot;Message.findAll&quot;, Message.class)</span>
+<span class="nc" id="L27">                .getResultList();</span>
+    }
+
+    /**
+     * Find all messages from a given user.
+     *
+     * @param id the id of the message.
+     * @return all found messages. If none are found, returns an empty List.
+     */
+    @Override
+    public List&lt;Message&gt; findMessagesFromUserId(int id) {
+<span class="nc" id="L38">        return entityManager</span>
+<span class="nc" id="L39">                .createNamedQuery(&quot;Message.findAllFromUser&quot;, Message.class)</span>
+<span class="nc" id="L40">                .setParameter(&quot;userId&quot;, id)</span>
+<span class="nc" id="L41">                .getResultList();</span>
+    }
+
+    /**
+     * Finds all messages which match the given content.
+     *
+     * @param content the content of the message.
+     * @return all found messages. If none are found, returns an empty List.
+     */
+    @Override
+    public List&lt;Message&gt; findMessagesWhereContentLike(String content) {
+<span class="nc" id="L52">        return entityManager</span>
+<span class="nc" id="L53">                .createNamedQuery(&quot;Message.findAllWhereContentLike&quot;, Message.class)</span>
+<span class="nc" id="L54">                .setParameter(&quot;content&quot;, content)</span>
+<span class="nc" id="L55">                .getResultList();</span>
+    }
+
+    /**
+     * Add a user to the list of messages.
+     *
+     * @param message the message to add.
+     * @return the id of the message added. If failed, return -1.
+     */
+    @Override
+    public int addMessage(Message message) {
+<span class="nc" id="L66">        entityManager.persist(message);</span>
+
+<span class="nc" id="L68">        return message.getId();</span>
+    }
+
+    /**
+     * Remove a message from the list of messages.
+     *
+     * @param id the id of the message to remove.
+     */
+    @Override
+    public void removeMessage(int id) {
+<span class="nc" id="L78">        entityManager.remove(entityManager.find(Message.class, id));</span>
+<span class="nc" id="L79">    }</span>
+
+    /**
+     * Update the information of a message.
+     *
+     * @param message the message to update with ita updated details.
+     * @return the updated Message. Null if failed.
+     */
+    @Override
+    public Message updateMessage(Message message) {
+<span class="nc" id="L89">        entityManager.merge(message);</span>
+
+<span class="nc" id="L91">        return message;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.0.201801022044</span></div></body></html>

@@ -569,7 +569,7 @@ public class UserTest {
     }
 
     /**
-     * {@link User#follow(User)}
+     * {@link User#followOther(User)}
      */
     @Test
     public void follow() {
@@ -577,7 +577,7 @@ public class UserTest {
     }
 
     /**
-     * {@link User#unfollow(User)}
+     * {@link User#unfollowOther(User)}
      */
     @Test
     public void unfollow() {
