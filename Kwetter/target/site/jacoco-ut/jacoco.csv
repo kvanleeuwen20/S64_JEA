@@ -8,6 +8,6 @@ Kwetter,service,UserService,33,0,0,0,9,0,7,0,7,0
 Kwetter,domain,UserRole,0,29,0,0,0,3,0,2,0,2
 Kwetter,domain,Message,16,127,0,18,4,33,4,19,4,10
 Kwetter,domain,User,107,259,18,44,30,76,15,47,6,25
-Kwetter,dto,UserDTO,171,0,0,0,65,0,22,0,22,0
+Kwetter,dto,UserDTO,169,0,0,0,65,0,22,0,22,0
 Kwetter,dto,FollowerDTO,43,0,0,0,18,0,8,0,8,0
 Kwetter,dto,MessageDTO,91,0,0,0,38,0,16,0,16,0

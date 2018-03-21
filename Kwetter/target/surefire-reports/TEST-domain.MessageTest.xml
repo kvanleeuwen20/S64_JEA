@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="24" failures="0" name="domain.MessageTest" time="0.147" errors="0" skipped="0">
+<testsuite tests="24" failures="0" name="domain.MessageTest" time="0.004" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2017.3.5"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -62,7 +62,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="domain.MessageTest" name="test_getMentions_right_filled" time="0"/>
+  <testcase classname="domain.MessageTest" name="test_getMentions_right_filled" time="0.003"/>
   <testcase classname="domain.MessageTest" name="test_setContent_tooLong" time="0"/>
   <testcase classname="domain.MessageTest" name="test_setContent_right_140" time="0"/>
   <testcase classname="domain.MessageTest" name="test_constructor_right" time="0"/>
@@ -77,7 +77,7 @@
   <testcase classname="domain.MessageTest" name="test_getLikes_right_filled" time="0"/>
   <testcase classname="domain.MessageTest" name="test_getMentions_right_empty" time="0"/>
   <testcase classname="domain.MessageTest" name="test_constructor_contentTooLong" time="0"/>
-  <testcase classname="domain.MessageTest" name="test_constructor_posterNull" time="0"/>
+  <testcase classname="domain.MessageTest" name="test_constructor_posterNull" time="0.001"/>
   <testcase classname="domain.MessageTest" name="test_constructor_right_content140" time="0"/>
   <testcase classname="domain.MessageTest" name="test_getPoster_right" time="0"/>
   <testcase classname="domain.MessageTest" name="test_getHashtags_right_filled" time="0"/>

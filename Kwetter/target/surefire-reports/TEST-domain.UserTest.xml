@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="57" failures="0" name="domain.UserTest" time="0" errors="0" skipped="0">
+<testsuite tests="57" failures="0" name="domain.UserTest" time="0.003" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2017.3.5"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -72,14 +72,14 @@
   <testcase classname="domain.UserTest" name="test_constructor_right" time="0"/>
   <testcase classname="domain.UserTest" name="test_constructor_profilePicturePathNull" time="0"/>
   <testcase classname="domain.UserTest" name="test_getUsername_right" time="0"/>
-  <testcase classname="domain.UserTest" name="test_constructor_nameNull" time="0"/>
+  <testcase classname="domain.UserTest" name="test_constructor_nameNull" time="0.001"/>
   <testcase classname="domain.UserTest" name="follow" time="0"/>
   <testcase classname="domain.UserTest" name="test_getBio_right" time="0"/>
   <testcase classname="domain.UserTest" name="test_setUsername_usernameEmpty" time="0"/>
   <testcase classname="domain.UserTest" name="test_setName_right" time="0"/>
   <testcase classname="domain.UserTest" name="test_constructor_emailEmpty" time="0"/>
   <testcase classname="domain.UserTest" name="test_setPassword_right" time="0"/>
-  <testcase classname="domain.UserTest" name="test_setEmail_emailNull" time="0"/>
+  <testcase classname="domain.UserTest" name="test_setEmail_emailNull" time="0.001"/>
   <testcase classname="domain.UserTest" name="test_setWebsite_right" time="0"/>
   <testcase classname="domain.UserTest" name="test_getID_right" time="0"/>
   <testcase classname="domain.UserTest" name="test_setLocation_right" time="0"/>
@@ -118,5 +118,5 @@
   <testcase classname="domain.UserTest" name="test_constructor_passwordNull" time="0"/>
   <testcase classname="domain.UserTest" name="test_setUsername_right" time="0"/>
   <testcase classname="domain.UserTest" name="test_constructor_usernameEmpty" time="0"/>
-  <testcase classname="domain.UserTest" name="test_setEmail_right" time="0"/>
+  <testcase classname="domain.UserTest" name="test_setEmail_right" time="0.001"/>
 </testsuite>
