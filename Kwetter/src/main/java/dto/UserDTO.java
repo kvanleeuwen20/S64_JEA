@@ -27,7 +27,7 @@ public class UserDTO {
         this.role = role;
     }
 
-    public UserDTO(int id, String email, String username, String web, String bio, String imageUrl, UserRole role, List<FollowerDTO> following, List<FollowerDTO> followers) {
+    public UserDTO(int id, String email, String username, String website, String bio, String profilePicturePath, UserRole role, List<FollowerDTO> following, List<FollowerDTO> followers) {
         this.id = id;
         this.email = email;
         this.username = username;
