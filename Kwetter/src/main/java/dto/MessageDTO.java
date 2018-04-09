@@ -1,30 +1,32 @@
 package dto;
 
+import domain.HashTag;
 import domain.Message;
 import domain.User;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MessageDTO {
     private int id;
 
     private String content;
 
-    private Set<String> hashtags;
+    private Set<HashTagDTO> hashTags;
 
-    private Set<User> likes;
+    private Set<UserDTO> likes;
 
-    private Set<User> mentions;
+    private Set<UserDTO> mentions;
 
-    private User poster;
+    private UserDTO poster;
 
     private GregorianCalendar postTime;
 
-    public MessageDTO(int id, String content, Set<String> hashtags, Set<User> likes, Set<User> mentions, User poster, GregorianCalendar postTime) {
+    public MessageDTO(int id, String content, Set<HashTagDTO> hashTags, Set<UserDTO> likes, Set<UserDTO> mentions, UserDTO poster, GregorianCalendar postTime) {
         this.id = id;
         this.content = content;
-        this.hashtags = hashtags;
+        this.hashTags = hashTags;
         this.likes = likes;
         this.mentions = mentions;
         this.poster = poster;
@@ -47,35 +49,35 @@ public class MessageDTO {
         this.content = content;
     }
 
-    public Set<String> getHashtags() {
-        return hashtags;
+    public Set<HashTagDTO> getHashTags() {
+        return hashTags;
     }
 
-    public void setHashtags(Set<String> hashtags) {
-        this.hashtags = hashtags;
+    public void setHashTags(Set<HashTagDTO> hashTags) {
+        this.hashTags = hashTags;
     }
 
-    public Set<User> getLikes() {
+    public Set<UserDTO> getLikes() {
         return likes;
     }
 
-    public void setLikes(Set<User> likes) {
+    public void setLikes(Set<UserDTO> likes) {
         this.likes = likes;
     }
 
-    public Set<User> getMentions() {
+    public Set<UserDTO> getMentions() {
         return mentions;
     }
 
-    public void setMentions(Set<User> mentions) {
+    public void setMentions(Set<UserDTO> mentions) {
         this.mentions = mentions;
     }
 
-    public User getPoster() {
+    public UserDTO getPoster() {
         return poster;
     }
 
-    public void setPoster(User poster) {
+    public void setPoster(UserDTO poster) {
         this.poster = poster;
     }
 
@@ -88,13 +90,17 @@ public class MessageDTO {
     }
 
     public static MessageDTO fromMessage(Message message) {
+        Set<HashTagDTO> hashTags = message.getHashTags().stream().map(HashTagDTO::fromHashTag).collect(Collectors.toSet());
+        Set<UserDTO> likes = message.getLikes().stream().map(UserDTO::fromUser).collect(Collectors.toSet());
+        Set<UserDTO> mentions = message.getMentions().stream().map(UserDTO::fromUser).collect(Collectors.toSet());
+
         return new MessageDTO(
                 message.getId(),
                 message.getContent(),
-                message.getHashtags(),
-                message.getLikes(),
-                message.getMentions(),
-                message.getPoster(),
+                hashTags,
+                likes,
+                mentions,
+                UserDTO.fromUser(message.getPoster()),
                 message.getPostTime()
         );
     }
