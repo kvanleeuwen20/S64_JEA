@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "Message")
 @NamedQueries({
         @NamedQuery(
-                name = "Mmssage.findAllFromUser",
+                name = "Message.findAllFromUser",
                 query = "SELECT m FROM Message m WHERE m.poster.id = :userId"
         ),
         @NamedQuery(
@@ -42,19 +42,19 @@ public class Message {
     /**
      * Set of HashTags which were placed in the message. One hashtag can only be added once.
      */
-    @Transient
-    private Set<String> hashtags;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<HashTag> hashTags;
 
     /**
      * Set of liked which were handed out by Users. One User can only like a message once.
      */
-    @OneToMany
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<User> likes;
 
     /**
      * Set of Users who are mentioned in the message. One user can only be mentioned once.
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<User> mentions;
 
     /**
@@ -100,9 +100,9 @@ public class Message {
         this.postTime = postTime;
         this.poster = poster;
 
-        //TODO - Determine hashtags and mentions based on the content.
+        //TODO - Determine hashTags and mentions based on the content.
 
-        this.hashtags = new HashSet<>();
+        this.hashTags = new HashSet<>();
         this.mentions = new HashSet<>();
         this.likes = new HashSet<>();
     }
@@ -117,12 +117,12 @@ public class Message {
     }
 
     /**
-     * Get the hashtags in this message.
+     * Get the hashTags in this message.
      *
-     * @return a copy of the list of hashtags
+     * @return a copy of the list of hashTags
      */
-    public Set<String> getHashtags() {
-        return new HashSet<>(this.hashtags);
+    public Set<HashTag> getHashTags() {
+        return new HashSet<>(this.hashTags);
     }
 
     /**
@@ -191,9 +191,12 @@ public class Message {
      *
      * @param like the user who likes the post.
      */
-    public void like(User like) {
-        throw new UnsupportedOperationException();
-        // TODO: Add desired functionality.
+    public boolean like(User like) {
+        if (!likes.contains(like)) {
+            return this.likes.add(like);
+        }
+
+        return false;
     }
 
     /**
@@ -202,18 +205,16 @@ public class Message {
      * @param unlike the user who likes the post.
      */
     public void unlike(User unlike) {
-        throw new UnsupportedOperationException();
-        // TODO: Add desired functionality.
+        this.likes.remove(unlike);
     }
 
     /**
      * Add a hashtag.
      *
-     * @param hashtag the hashtag to add. Cannot be an empty String.
+     * @param hashTag the hashtag to add. Cannot be an empty String.
      */
-    private void addHashtag(String hashtag) {
-        throw new UnsupportedOperationException();
-        // TODO: Add desired functionality.
+    private void addHashtag(HashTag hashTag) {
+        this.hashTags.add(hashTag);
     }
 
     /**
@@ -221,8 +222,11 @@ public class Message {
      *
      * @param mention the user to mention.
      */
-    private void addMention(User mention) {
-        throw new UnsupportedOperationException();
-        // TODO: add desired functionality.
+    private boolean addMention(User mention) {
+        if (!this.mentions.contains(mention)) {
+            return this.mentions.add(mention);
+        }
+
+        return false;
     }
 }

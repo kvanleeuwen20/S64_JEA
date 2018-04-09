@@ -9,6 +9,7 @@ import java.util.List;
 
 @Stateless
 public class MessageService {
+
     @Inject
     private MessageDAO messageDAO;
 
@@ -32,7 +33,7 @@ public class MessageService {
      * @param content the content to search for
      * @return a list of messages which contain the given content
      */
-    public List<Message> findPostsWhereContentLike(String content) {
+    public List<Message> findMessagesWhereContentLike(String content) {
         return messageDAO.findMessagesWhereContentLike(content);
     }
 
@@ -56,7 +57,7 @@ public class MessageService {
     }
 
     /**
-     * Removes a message.
+     * Updates a message.
      *
      * @param message the messsage to update and its updated values.
      * @return the updated message.
