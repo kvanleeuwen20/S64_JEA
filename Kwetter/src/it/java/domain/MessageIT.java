@@ -173,15 +173,15 @@ public class MessageIT {
     }
 
     /**
-     * {@link Message#getHashtags()}
+     * {@link Message#getHashTags()}
      */
     @Test
     public void test_getHashtags_right_empty() {
-        Assert.assertEquals(hashtags, testMessage.getHashtags());
+        Assert.assertEquals(hashtags, testMessage.getHashTags());
     }
 
     /**
-     * {@link Message#getHashtags()}
+     * {@link Message#getHashTags()}
      */
     @Test
     public void test_getHashtags_right_filled() {
