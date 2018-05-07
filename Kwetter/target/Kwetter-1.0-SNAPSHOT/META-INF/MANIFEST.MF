@@ -1,5 +1,11 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: jhlmj
 Created-By: IntelliJ IDEA
 Build-Jdk: 1.8.0_162
+=======
+Built-By: pim
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_161
+>>>>>>> 46527231a73e7a19cf2ecf170ca37450d4af63b0
 

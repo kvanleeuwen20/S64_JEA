@@ -1,10 +1,31 @@
-INSERT INTO App_User(ID, BIO, EMAIL, LOCATION, NAME, PASSWORD, PROFILEPICTUREPATH, ROLE, USERNAME, WEBSITE) VALUES (0, 'My life is not interesting enough for a bio.... :(', 'pim@janissen.nl', 'BELFELD', 'Pim Janissen', 'password', '/imgs/0_0002', 'ADMINISTRATOR', 'PimJan', 'www.ihasabucket.com');
-INSERT INTO App_User(ID, BIO, EMAIL, LOCATION, NAME, PASSWORD, PROFILEPICTUREPATH, ROLE, USERNAME, WEBSITE) VALUES (1, '', 'jhlm.janssen@student.fontys.nl', 'NUENEN', 'Jeroen', 'Kwetter', '/imgs/1_0000', 'USER', 'Jehama', 'www.beurs.nl/koersen/aex/p1');
-INSERT INTO App_User(ID, BIO, EMAIL, LOCATION, NAME, PASSWORD, PROFILEPICTUREPATH, ROLE, USERNAME, WEBSITE) VALUES (2, 'Lees mijn boek over hoe ik vaak ruzie met mensen heb waardoor ik nog meer ruzie heb gekregen waardoor ik nu in principe wel een deel 2 kan schrijven.', 'Gordon@hotmail.com', 'AMSTERDAM', 'Gordon', 'Joling', '/imgs/2_0039', 'USER', 'TheRealG', 'www.gordon.nl');
+INSERT INTO App_User(ID, BIO, EMAIL, LOCATION, NAME, PASSWORD, PROFILEPICTUREPATH, ROLE, USERNAME, WEBSITE) VALUES (1, 'My life is not interesting enough for a bio.... :(', 'pim@janissen.nl', 'BELFELD', 'Pim Janissen', 'password', '/imgs/0_0002', 'ADMINISTRATOR', 'PimJan', 'www.ihasabucket.com');
+INSERT INTO App_User(ID, BIO, EMAIL, LOCATION, NAME, PASSWORD, PROFILEPICTUREPATH, ROLE, USERNAME, WEBSITE) VALUES (2, '', 'jhlm.janssen@student.fontys.nl', 'NUENEN', 'Jeroen', 'Kwetter', '/imgs/1_0000', 'USER', 'Jehama', 'www.beurs.nl/koersen/aex/p1');
+INSERT INTO App_User(ID, BIO, EMAIL, LOCATION, NAME, PASSWORD, PROFILEPICTUREPATH, ROLE, USERNAME, WEBSITE) VALUES (3, 'Lees mijn boek over hoe ik vaak ruzie met mensen heb waardoor ik nog meer ruzie heb gekregen waardoor ik nu in principe wel een deel 2 kan schrijven.', 'Gordon@hotmail.com', 'AMSTERDAM', 'Gordon', 'Joling', '/imgs/2_0039', 'USER', 'TheRealG', 'www.gordon.nl');
 
-INSERT INTO App_User_App_user(following_ID, followers_ID) VALUES(1, 0);
-INSERT INTO App_User_App_user(following_ID, followers_ID) VALUES(1, 2);
-INSERT INTO App_User_App_user(following_ID, followers_ID) VALUES(2, 0);
 INSERT INTO App_User_App_user(following_ID, followers_ID) VALUES(2, 1);
+INSERT INTO App_User_App_user(following_ID, followers_ID) VALUES(2, 3);
+INSERT INTO App_User_App_user(following_ID, followers_ID) VALUES(3, 1);
+INSERT INTO App_User_App_user(following_ID, followers_ID) VALUES(3, 2);
+
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (1, 'And the moral of that is--\"Oh, \'tis love, that makes the matter on, What would become of me?\' Luckily for Alice, the little crocodile Improv', '2017-05-25 13:10:28', 1);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (2, 'ONE.\' \'One, indeed!\' said the youth, \'as I mentioned before, And have grown most uncommonly fat; Yet you finished the guinea-pigs!\' thought ', '2017-06-08 15:32:25', 2);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (3, 'Duchess. An invitation from the trees under which she had never seen such a thing. After a while she remembered that she had put the hookah ', '2017-05-29 03:42:09', 1);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (4, 'Alice, who felt ready to ask help of any that do,\' Alice hastily replied; \'only one doesn\'t like changing so often, of course was, how to be', '2017-10-01 09:54:12', 3);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (5, 'Gryphon at the White Rabbit, who said in a court of justice before, but she added, \'and the moral of that is--\"The more there is of yours.\"\'', '2018-02-16 02:34:25', 3);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (6, 'I\'ll manage better this time,\' she said this, she came rather late, and the moon, and memory, and muchness--you know you say things are \"muc', '2017-10-29 08:19:47', 2);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (7, 'Alice felt so desperate that she hardly knew what she was terribly frightened all the first to speak. \'What size do you call it sad?\' And sh', '2017-12-06 03:10:50', 2);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (8, 'King. (The jury all brightened up at the sudden change, but very glad to do so. \'Shall we try another figure of the e--e--evening, Beautiful', '2017-06-04 02:57:15', 1);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (9, 'However, at last it unfolded its arms, took the cauldron of soup off the subjects on his spectacles. \'Where shall I begin, please your Majes', '2017-10-27 00:33:15', 1);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (10, 'The Cat only grinned when it had made. \'He took me for his housemaid,\' she said to herself, \'the way all the jurymen are back in a great cro', '2017-10-30 14:27:31', 1);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (11, 'So you see, because some of them with one foot. \'Get up!\' said the Mock Turtle with a yelp of delight, which changed into alarm in another m', '2018-03-31 19:53:08', 3);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (12, 'I do,\' said Alice indignantly. \'Let me alone!\' \'Serpent, I say again!\' repeated the Pigeon, but in a wondering tone. \'Why, what a Mock Turtl', '2017-07-27 12:13:14', 3);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (13, 'Alice. \'And be quick about it,\' said the Mock Turtle in the distance, and she hastily dried her eyes to see some meaning in it.\' The jury al', '2018-02-22 05:44:04', 3);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (14, 'WHAT?\' thought Alice; \'but when you come to the law, And argued each case with MINE,\' said the Dodo, pointing to the end: then stop.\' These ', '2017-11-03 20:07:25', 3);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (15, 'Duchess was sitting on a branch of a procession,\' thought she, \'what would become of me?\' Luckily for Alice, the little golden key and hurri', '2017-04-30 16:21:19', 3);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (16, 'THAT\'S a good way off, and Alice called after it; and as it was quite a long way back, and see what was the fan and gloves. \'How queer it se', '2017-05-24 04:11:06', 3);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (17, 'Dormouse denied nothing, being fast asleep. \'After that,\' continued the Hatter, \'I cut some more of the court, \'Bring me the truth: did you ', '2017-11-29 14:05:04', 2);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (18, 'Alice, \'it\'ll never do to hold it. As soon as there was the King; and the three gardeners who were giving it a very curious thing, and she t', '2018-04-06 16:36:14', 3);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (19, 'YOU?\' Which brought them back again to the law, And argued each case with MINE,\' said the Gryphon. \'Of course,\' the Gryphon repeated impatie', '2017-11-30 01:07:56', 1);
+INSERT INTO `Message` (`id`, `content`, `postTime`, `poster_id`) VALUES (20, 'VI. Pig and Pepper For a minute or two, and the Queen added to one of the court,\" and I never understood what it might appear to others that', '2018-01-04 22:33:14', 2);
 
 COMMIT;

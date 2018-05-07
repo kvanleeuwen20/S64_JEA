@@ -64,10 +64,13 @@ public class UserRest {
      * @return user instance in JSON format when successfully saved in the db
      */
     @POST
+    @Path("/signUp/{user}")
     @Consumes({APPLICATION_JSON})
     @Produces({APPLICATION_JSON})
     public int signUp(User user) {
-        return userService.register(user);
+
+        User user2 = new User("m.weesenaar@student.fontys.nl", "Narcos<3", "Weesje123", "Maikel", "/img/3_0001");
+        return userService.register(user2);
     }
 
     /**
@@ -91,6 +94,7 @@ public class UserRest {
      * @return user instance including in JSON format when successfully saved in the db
      */
     @PUT
+    @Path("/update/{user}")
     @Consumes({APPLICATION_JSON})
     @Produces({APPLICATION_JSON})
     public UserDTO update(User user) {
@@ -113,10 +117,9 @@ public class UserRest {
      * @return user instance in JSON format when found in the db
      */
     @POST
-    @Path("/auth")
-    @Consumes({APPLICATION_JSON})
+    @Path("/authenticate/{email}/{password}")
     @Produces({APPLICATION_JSON})
-    public UserDTO authenticate(String email, String password) {
+    public UserDTO authenticate(@PathParam("email") String email, @PathParam("password") String password) {
         return UserDTO.fromUser(userService.authenticate(email, password));
     }
 
@@ -128,7 +131,8 @@ public class UserRest {
      * @param id the id of the user who needs to be deleted from the db
      */
     @DELETE
-    @Path("/{id}")
+    @Consumes({APPLICATION_JSON})
+    @Path("/remove/{id}")
     public void delete(@PathParam("id") int id) {
         userService.remove(id);
     }
@@ -139,7 +143,8 @@ public class UserRest {
      * @param username      the username of the user who is gonna followOther someone else
      * @param otherUsername the username of the user who is going to be followed
      */
-    @GET
+    @POST
+    @Consumes({APPLICATION_JSON})
     @Path("/followOther/{username}/{otherUsername}")
     public void addFollower(@PathParam("username") String username, @PathParam("otherUsername") String otherUsername) {
         User user1 = userService.getUserByUsername(username);
@@ -163,7 +168,8 @@ public class UserRest {
      * @param username      the username of the user who is gonna un followOther someone else
      * @param otherUsername the username of the user who is going to be un followed
      */
-    @DELETE
+    @POST
+    @Consumes({APPLICATION_JSON})
     @Path("/unfollowOther/{username}/{otherUsername}")
     public void deleteFollower(@PathParam("username") String username, @PathParam("otherUsername") String otherUsername) {
         User user1 = userService.getUserByUsername(username);

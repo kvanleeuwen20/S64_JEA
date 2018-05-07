@@ -10,15 +10,15 @@
         <class>domain.User</class>
         <class>domain.Message</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://192.168.24.189:3306/Kwetter" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Kwetter" />
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
             <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="Kwetter" />
+            <property name="hibernate.connection.password" value="student" />
             <property name="hibernate.archive.autodetection" value="class" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
-            <property name= "hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
             <property name="javax.persistence.sql-load-script-source" value="META-INF/sql/insert.sql" />
         </properties>
