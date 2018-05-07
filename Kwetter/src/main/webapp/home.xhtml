@@ -20,6 +20,11 @@
             </h:column>
 
             <h:column>
+                <xsi:facet name="Header">ID</xsi:facet>
+                #{users.id}
+            </h:column>
+
+            <h:column>
                 <xsi:facet name="Header">Email</xsi:facet>
                 #{users.email}
             </h:column>
@@ -31,19 +36,17 @@
         </h:dataTable>
     </h:form>
 
-    <xsi:commandButton value="Get Kweets" styleClass="apply_button" actionListener="#{}" update="table-wrapper">
-        <f:attribute name="trigram" value="#{searchBean.trigram}"/>
-        <f:attribute name="firstName" value="#{searchBean.firstName}"/>
-        <f:attribute name="lastName" value="#{searchBean.lastName}"/>
-    </xsi:commandButton>
 
-    <h:panelGroup id="table-wrapper">
-        <xsi:dataTable rendered="#{searchBean.visible}" value="#{searchBean.listUser}" var="user">
-            <xsi:column headerText="Trigram">
-                <h:outputText value="#{searchBean.trigram}"/>
-            </xsi:column>
-        </xsi:dataTable>
-    </h:panelGroup>
+
+    <h:form>
+        <h:dataTable value="#{MessageRest.findMessagesFromUser(2)}" var="messages">
+            <h:column>
+                <xsi:facet name="Header">Content</xsi:facet>
+                #{messages.content}
+            </h:column>
+        </h:dataTable>
+    </h:form>
+
 
 </h:body>
 </html>

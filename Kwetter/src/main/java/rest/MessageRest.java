@@ -4,6 +4,7 @@ import domain.Message;
 import dto.MessageDTO;
 import service.MessageService;
 
+import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("/messages")
+@ManagedBean(name = "MessageRest", eager = true)
 public class MessageRest {
 
     @Inject

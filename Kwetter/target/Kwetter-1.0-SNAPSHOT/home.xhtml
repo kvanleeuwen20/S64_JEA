@@ -20,6 +20,11 @@
             </h:column>
 
             <h:column>
+                <xsi:facet name="Header">ID</xsi:facet>
+                #{users.id}
+            </h:column>
+
+            <h:column>
                 <xsi:facet name="Header">Email</xsi:facet>
                 #{users.email}
             </h:column>
@@ -30,5 +35,18 @@
             </h:column>
         </h:dataTable>
     </h:form>
+
+
+
+    <h:form>
+        <h:dataTable value="#{MessageRest.findMessagesFromUser(2)}" var="messages">
+            <h:column>
+                <xsi:facet name="Header">Content</xsi:facet>
+                #{messages.content}
+            </h:column>
+        </h:dataTable>
+    </h:form>
+
+
 </h:body>
 </html>
