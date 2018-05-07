@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="domain.MessageIT" time="0.016" tests="24" errors="0" skipped="0" failures="0">
+<testsuite name="domain.MessageIT" time="0" tests="24" errors="0" skipped="0" failures="0">
   <properties>
     <property name="idea.version" value="2017.3.5"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -75,7 +75,7 @@
   <testcase name="test_getPostTime_right" classname="domain.MessageIT" time="0"/>
   <testcase name="test_getLikes_right_filled" classname="domain.MessageIT" time="0"/>
   <testcase name="test_getMentions_right_empty" classname="domain.MessageIT" time="0"/>
-  <testcase name="test_constructor_contentTooLong" classname="domain.MessageIT" time="0.016"/>
+  <testcase name="test_constructor_contentTooLong" classname="domain.MessageIT" time="0"/>
   <testcase name="test_constructor_posterNull" classname="domain.MessageIT" time="0"/>
   <testcase name="test_constructor_right_content140" classname="domain.MessageIT" time="0"/>
   <testcase name="test_getPoster_right" classname="domain.MessageIT" time="0"/>

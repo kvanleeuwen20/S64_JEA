@@ -4,6 +4,7 @@ import domain.User;
 import dto.UserDTO;
 import service.UserService;
 
+import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("/users")
+@ManagedBean(name = "UserRest", eager = true)
 public class UserRest {
 
     @Inject
