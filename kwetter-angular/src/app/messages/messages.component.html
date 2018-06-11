@@ -1,0 +1,23 @@
+<div *ngIf="sessionService.loggedInUser" class="container">
+  <h2>Messages</h2>
+
+  <table class="table">
+    <tr *ngFor="let message of messages">
+      <blockquote class="twitter-tweet">
+        <div style="margin: 10px">
+          <div style="float:top;">
+            <div class="profile-userpic" style="float:left;"><img src="{{message.poster.profilePicturePath}}" style="height: 64px; width: 64px"/></div>
+            <div style="float:left; margin-left: 10px;"><span style="color: #5b9bd1; font-size:14px;"><a routerLink="/profile/{{message.poster.id}}">{{message.poster.name}}</a></span><br/>
+              <span style="font-size:12px; color: #5a7391"><i>@{{message.poster.username}}</i></span></div>
+            <div style="float:right;">
+              <div style="color: #93a3b5">{{message.postTime | date}}</div>
+            </div>
+          </div>
+          <div style="float:left; margin-top: 10px;">
+            <div style="color: #292b2c">{{message.content}}</div>
+          </div>
+        </div>
+      </blockquote>
+    </tr>
+  </table>
+</div>

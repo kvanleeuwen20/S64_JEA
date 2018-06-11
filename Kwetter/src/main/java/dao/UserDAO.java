@@ -1,6 +1,7 @@
 package dao;
 
 import domain.User;
+import dto.UserDTO;
 
 import javax.ejb.Stateless;
 import java.util.List;
@@ -36,6 +37,14 @@ public interface UserDAO {
     User findUserByUsername(String username);
 
     /**
+     * Find user by the given id.
+     *
+     * @param id the id of the user to find.
+     * @return the user if found. Else null.
+     */
+    User findUserByID(int id);
+
+    /**
      * Add a user to the list of users.
      *
      * @param user the user to add to the list of users.
@@ -57,4 +66,12 @@ public interface UserDAO {
      * @return the updated user if successful, else null.
      */
     User updateUser(User user);
+
+    /**
+     * Find user by the given email.
+     *
+     * @param email the email of the user to find.
+     * @return the user if found. Else null.
+     */
+    User findUserByEmail(String email);
 }

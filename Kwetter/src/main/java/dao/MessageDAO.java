@@ -18,6 +18,13 @@ public interface MessageDAO {
     List<Message> getAllMessages();
 
     /**
+     * Gets a timeline for the user. consisting of all messages from people the user is following.
+     * @param id
+     * @return
+     */
+    List<Message> generateTimeLine(int id);
+
+    /**
      * Find all messages from a given user.
      *
      * @param id the id of the message.

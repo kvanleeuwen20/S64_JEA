@@ -1,0 +1,23 @@
+<form *ngIf="sessionService.loggedInUser" class="container" (ng-submit)="onSubmit()" #userDetails="ngForm">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username" required />
+  </div>
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="user.name" required />
+  </div>
+
+  <div class="form-group">
+    <label for="website">Website</label>
+    <input type="url" class="form-control" id="website" name="website" [(ngModel)]="user.website" />
+  </div>
+
+  <div class="form-group">
+    <label for="bio">Biography</label>
+    <textarea class="form-control" cols="40" rows="5" id="bio" name="bio" [(ngModel)]="user.bio"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-success" [disabled]="!userDetails.form.valid" (click)="onSubmit()">Edit</button>
+</form>

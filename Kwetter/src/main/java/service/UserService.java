@@ -3,6 +3,7 @@ package service;
 import dao.UserDAO;
 import dao.UserDAOJPAImpl;
 import domain.User;
+import dto.UserDTO;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -38,6 +39,16 @@ public class UserService {
     }
 
     /**
+     * Get a user by the given email address.
+     *
+     * @param email the email
+     * @return the user if found, else null.
+     */
+    public User getUserByEmail(String email) {
+        return userDao.findUserByEmail(email);
+    }
+
+    /**
      * Get a user by the given username.
      *
      * @param username the username
@@ -45,6 +56,16 @@ public class UserService {
      */
     public User getUserByUsername(String username) {
         return userDao.findUserByUsername(username);
+    }
+
+    /**
+     * Get a user by the given id.
+     *
+     * @param id the id
+     * @return the user if found, else null.
+     */
+    public User getUserByID (int id) {
+        return userDao.findUserByID(id);
     }
 
     /**
@@ -67,12 +88,39 @@ public class UserService {
     }
 
     /**
-     * Updates an existing user.
+     * Updates the general info (username, name, bio, website) of an existing user.
      *
-     * @param user the user to update and the user's new data.
+     * @param userDTO the user to update and the user's new data.
      * @return the new user details. Null if failed to update.
      */
-    public User update(User user) {
+    public User update(UserDTO userDTO) {
+        User user = userDao.findUserByID(userDTO.getId());
+
+        user.setBio(userDTO.getBio());
+        user.setWebsite(userDTO.getWebsite());
+        user.setName(userDTO.getName());
+        user.setUsername(userDTO.getUsername());
+
         return userDao.updateUser(user);
+    }
+
+    public void addFollower(int userID, int otherUserID) {
+        User user = this.userDao.findUserByID(userID);
+        User otherUser = this.userDao.findUserByID(otherUserID);
+
+        user.followOther(otherUser);
+
+        this.userDao.updateUser(user);
+        this.userDao.updateUser(otherUser);
+    }
+
+    public void removeFollower(int userID, int otherUserID) {
+        User user = this.userDao.findUserByID(userID);
+        User otherUser = this.userDao.findUserByID(otherUserID);
+
+        user.unfollowOther(otherUser);
+
+        this.userDao.updateUser(user);
+        this.userDao.updateUser(otherUser);
     }
 }

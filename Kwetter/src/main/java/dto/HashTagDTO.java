@@ -7,6 +7,10 @@ public class HashTagDTO {
 
     private String tag;
 
+    public HashTagDTO() {
+
+    }
+
     public HashTagDTO(int id, String tag) {
         this.id = id;
         this.tag= tag;

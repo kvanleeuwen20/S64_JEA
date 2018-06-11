@@ -9,10 +9,11 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>domain.User</class>
         <class>domain.Message</class>
+        <class>domain.HashTag</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Kwetter" />
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.username" value="root" />
+            <property name="hibernate.connection.username" value="student" />
             <property name="hibernate.connection.password" value="student" />
             <property name="hibernate.archive.autodetection" value="class" />
             <property name="hibernate.show_sql" value="true" />

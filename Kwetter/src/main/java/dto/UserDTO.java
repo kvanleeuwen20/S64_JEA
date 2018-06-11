@@ -11,27 +11,34 @@ public class UserDTO {
     private String email;
     private String username;
     private String website;
+    private String name;
     private String bio;
     private String profilePicturePath;
     private UserRole role;
     private List<FollowerDTO> following;
     private List<FollowerDTO> followers;
 
-    public UserDTO(int id, String email, String username, String website, String bio, String profilePicturePath, UserRole role) {
+    public UserDTO() {
+
+    }
+
+    public UserDTO(int id, String email, String username, String website, String name, String bio, String profilePicturePath, UserRole role) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.website = website;
+        this.name = name;
         this.bio = bio;
         this.profilePicturePath = profilePicturePath;
         this.role = role;
     }
 
-    public UserDTO(int id, String email, String username, String website, String bio, String profilePicturePath, UserRole role, List<FollowerDTO> following, List<FollowerDTO> followers) {
+    public UserDTO(int id, String email, String username, String website, String name, String bio, String profilePicturePath, UserRole role, List<FollowerDTO> following, List<FollowerDTO> followers) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.website = website;
+        this.name = name;
         this.bio = bio;
         this.profilePicturePath = profilePicturePath;
         this.role = role;
@@ -96,10 +103,10 @@ public class UserDTO {
     }
 
     // No need for copy, since that is already handled in the domain.
+
     public List<FollowerDTO> getFollowing() {
         return this.following;
     }
-
     public void setFollowing(List<FollowerDTO> following) {
         this.following = following;
     }
@@ -119,6 +126,7 @@ public class UserDTO {
                 user.getEmail(),
                 user.getUsername(),
                 user.getWebsite(),
+                user.getName(),
                 user.getBio(),
                 user.getProfilePicturePath(),
                 user.getRole(),
@@ -134,9 +142,18 @@ public class UserDTO {
                 user.getEmail(),
                 user.getUsername(),
                 user.getWebsite(),
+                user.getName(),
                 user.getBio(),
                 user.getProfilePicturePath(),
                 user.getRole()
         );
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

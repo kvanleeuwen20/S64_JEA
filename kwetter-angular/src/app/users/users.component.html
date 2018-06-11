@@ -1,0 +1,15 @@
+<div class="container">
+  <h2>Users</h2>
+
+  <table class="table">
+    <tr *ngFor="let user of users">
+      <a routerLink="/profile/{{user.id}}">
+        <td><span class="badge badge-primary">{{user.id}}</span></td>
+        <td><img src="{{user.profilePicturePath}}" /></td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.role}}</td>
+      </a>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,11 @@
+<div *ngIf="sessionService.loggedInUser" class="container">
+  <h2>New Message</h2>
+
+  <form class="container" (ng-submit)="onSubmit()" #postMessage="ngForm">
+    <div class="form-group">
+      <textarea class="form-control" cols="20" rows="5" id="message" name="message" [(ngModel)]="message.content" maxlength="140" required></textarea>
+    </div>
+    <span>{{message.content.length}}</span>
+    <button style="float: right" type="submit" class="btn btn-success" [disabled]="!postMessage.form.valid" (click)="onSubmit()">Post</button>
+  </form>
+</div>

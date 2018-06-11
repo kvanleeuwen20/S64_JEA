@@ -1,7 +1,10 @@
 package service;
 
 import dao.MessageDAO;
+import dao.UserDAO;
 import domain.Message;
+import domain.User;
+import dto.MessageDTO;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -12,6 +15,9 @@ public class MessageService {
 
     @Inject
     private MessageDAO messageDAO;
+
+    @Inject
+    private UserDAO userDAO;
 
     public MessageService() {
 
@@ -28,6 +34,17 @@ public class MessageService {
     }
 
     /**
+     * Get all messages from user with given id.
+     *
+     * @param id the id of the poster.
+     * @return a list of messages.
+     */
+    public List<Message> generateTimeLine(int id) {
+
+        return messageDAO.generateTimeLine(id);
+    }
+
+    /**
      * Get all messages where the content contains the given content.
      *
      * @param content the content to search for
@@ -40,10 +57,12 @@ public class MessageService {
     /**
      * Posts a message.
      *
-     * @param message the message to post.
+     * @param messageDTO the message to post.
      * @return the id of the new message if succesful, else -1.
      */
-    public int postMessage(Message message) {
+    public int postMessage(MessageDTO messageDTO) {
+        User poster = this.userDAO.findUserByID(messageDTO.getPoster().getId());
+        Message message = new Message(messageDTO.getContent(), messageDTO.getPostTime(), poster);
         return messageDAO.addMessage(message);
     }
 

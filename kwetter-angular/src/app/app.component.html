@@ -1,0 +1,20 @@
+<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
+  <div class="container" style="float: left;">
+    <div style="float: left;">
+      <a class="navbar-brand" style="color: white"> {{title}} </a>
+      <ul class="nav navbar-nav" routerLinkActive="active">
+        <li class="nav-item"><a class="nav-link" routerLink="profile/{{sessionService.loggedInUser?.id}}">My Profile</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="timeline/{{sessionService.loggedInUser?.id}}">Timeline</a></li>
+        <li *ngIf="!sessionService.loggedInUser" class="nav-item"><a class="nav-link" routerLink="login">Login</a></li>
+      </ul>
+    </div>
+    <div style="float: right;">
+      <p *ngIf="sessionService.loggedInUser" style="color: white">Hello {{ sessionService.loggedInUser.name }}</p>
+      <p *ngIf="sessionService.token" style="color: white; font-size: 10px;">Token: {{ sessionService.token.token }}</p>
+    </div>
+  </div>
+</nav>
+<div>
+  <router-outlet></router-outlet>
+  <router-outlet name="secondary" *ngIf="router.url.indexOf('/profile') >= 0"></router-outlet>
+</div>

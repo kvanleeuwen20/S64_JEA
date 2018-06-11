@@ -1,7 +1,9 @@
 package rest;
 
 import domain.User;
+import domain.UserRole;
 import dto.UserDTO;
+import security.Secured;
 import service.UserService;
 
 import javax.inject.Inject;
@@ -29,9 +31,24 @@ public class UserRest {
      */
     @GET
     @Path("/")
+    @Secured({UserRole.USER, UserRole.ADMINISTRATOR})
     @Produces({APPLICATION_JSON})
     public List<UserDTO> getUsers() {
         return userService.getUsers().stream().map(UserDTO::fromUser).collect(Collectors.toList());
+    }
+
+    /**
+     * Route to get a specific user by id
+     *
+     * @param id the id to find a user with
+     * @return a user in JSON format
+     */
+    @GET
+    @Path("/findByID/{id}")
+    @Secured({UserRole.USER, UserRole.ADMINISTRATOR})
+    @Produces({APPLICATION_JSON})
+    public UserDTO getUserByID(@PathParam("id") int id) {
+        return UserDTO.fromUser(userService.getUserByID(id));
     }
 
     /**
@@ -41,34 +58,11 @@ public class UserRest {
      * @return a user in JSON format
      */
     @GET
-    @Path("/{username}")
+    @Path("/findByUsername/{username}")
+    @Secured({UserRole.USER, UserRole.ADMINISTRATOR})
     @Produces({APPLICATION_JSON})
     public UserDTO getUserByUsername(@PathParam("username") String username) {
         return UserDTO.fromUser(userService.getUserByUsername(username));
-    }
-
-    /**
-     * Route to sign up a new user
-     * <p>
-     * Required request body JSON format:
-     * {
-     * "username": "username",
-     * "password": "password"
-     * }
-     * <p>
-     * All above fields are required!
-     *
-     * @param user user instance serialized from request body
-     * @return user instance in JSON format when successfully saved in the db
-     */
-    @POST
-    @Path("/signUp/{user}")
-    @Consumes({APPLICATION_JSON})
-    @Produces({APPLICATION_JSON})
-    public int signUp(User user) {
-
-        User user2 = new User("m.weesenaar@student.fontys.nl", "Narcos<3", "Weesje123", "Maikel", "/img/3_0001");
-        return userService.register(user2);
     }
 
     /**
@@ -91,34 +85,13 @@ public class UserRest {
      * @param user user instance serialized from request body
      * @return user instance including in JSON format when successfully saved in the db
      */
-    @PUT
-    @Path("/update/{user}")
+    @POST
+    @Path("/update")
+    @Secured({UserRole.USER, UserRole.ADMINISTRATOR})
     @Consumes({APPLICATION_JSON})
     @Produces({APPLICATION_JSON})
-    public UserDTO update(User user) {
+    public UserDTO update(UserDTO user) {
         return UserDTO.fromUser(userService.update(user));
-    }
-
-    /**
-     * Route to authenticated user with login credentials.
-     * <p>
-     * Required request body JSON format:
-     * {
-     * "username": "username",
-     * "password": "password"
-     * }
-     * <p>
-     * All above fields are required!
-     *
-     * @param email email
-     * @param password password
-     * @return user instance in JSON format when found in the db
-     */
-    @POST
-    @Path("/authenticate/{email}/{password}")
-    @Produces({APPLICATION_JSON})
-    public UserDTO authenticate(@PathParam("email") String email, @PathParam("password") String password) {
-        return UserDTO.fromUser(userService.authenticate(email, password));
     }
 
     /**
@@ -129,6 +102,7 @@ public class UserRest {
      * @param id the id of the user who needs to be deleted from the db
      */
     @DELETE
+    @Secured(UserRole.ADMINISTRATOR)
     @Consumes({APPLICATION_JSON})
     @Path("/remove/{id}")
     public void delete(@PathParam("id") int id) {
@@ -141,23 +115,12 @@ public class UserRest {
      * @param username      the username of the user who is gonna followOther someone else
      * @param otherUsername the username of the user who is going to be followed
      */
-    @POST
+    @GET
+    @Secured({UserRole.USER, UserRole.ADMINISTRATOR})
     @Consumes({APPLICATION_JSON})
-    @Path("/followOther/{username}/{otherUsername}")
-    public void addFollower(@PathParam("username") String username, @PathParam("otherUsername") String otherUsername) {
-        User user1 = userService.getUserByUsername(username);
-        User user2 = userService.getUserByUsername(otherUsername);
-
-        System.out.println(user1.getUsername());
-        System.out.println(user2.getUsername());
-
-        if (user1 == null || user2 == null) {
-            return;
-        }
-
-        user1.followOther(user2);
-        userService.update(user1);
-        System.out.println(user1);
+    @Path("/followOther/{userID}/{otherUserID}")
+    public void addFollower(@PathParam("userID") int userID, @PathParam("otherUserID") int otherUserID) {
+        this.userService.addFollower(userID, otherUserID);
     }
 
     /**
@@ -166,18 +129,12 @@ public class UserRest {
      * @param username      the username of the user who is gonna un followOther someone else
      * @param otherUsername the username of the user who is going to be un followed
      */
-    @POST
+    @GET
+    @Secured({UserRole.USER, UserRole.ADMINISTRATOR})
     @Consumes({APPLICATION_JSON})
-    @Path("/unfollowOther/{username}/{otherUsername}")
-    public void deleteFollower(@PathParam("username") String username, @PathParam("otherUsername") String otherUsername) {
-        User user1 = userService.getUserByUsername(username);
-        User user2 = userService.getUserByUsername(otherUsername);
+    @Path("/unfollowOther/{userID}/{otherUserID}")
+    public void deleteFollower(@PathParam("userID") int userID, @PathParam("otherUserID") int otherUserID) {
+        this.userService.removeFollower(userID, otherUserID);
 
-        if (user1 == null || user2 == null) {
-            return;
-        }
-
-        user1.unfollowOther(user2);
-        userService.update(user1);
     }
 }

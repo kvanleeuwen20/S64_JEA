@@ -42,6 +42,20 @@ public class MessageDAOJPAImpl implements MessageDAO {
     }
 
     /**
+     *
+     *
+     * @param id the id of the message.
+     * @return all found messages. If none are found, returns an empty List.
+     */
+    @Override
+    public List<Message> generateTimeLine(int id) {
+        return entityManager
+                .createNamedQuery("Message.findAllMessagesFromFollowing", Message.class)
+                .setParameter("userId", id)
+                .getResultList();
+    }
+
+    /**
      * Finds all messages which match the given content.
      *
      * @param content the content of the message.

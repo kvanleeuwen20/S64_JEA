@@ -1,6 +1,7 @@
 package dao;
 
 import domain.User;
+import dto.UserDTO;
 import org.hibernate.Transaction;
 import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
 import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
@@ -61,6 +62,28 @@ public class UserDAOJPAImpl implements UserDAO {
                 .getSingleResult();
     }
 
+    @Override
+    public User findUserByEmail(String email) {
+        return entityManager
+                .createNamedQuery("App_User.findByEmail", User.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
+    /**
+     * Find user by the given id.
+     *
+     * @param id the id of the user to find.
+     * @return the user if found. Else null.
+     */
+    @Override
+    public User findUserByID(int id) {
+        return entityManager
+                .createNamedQuery("App_User.findByID", User.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
     /**
      * Add a user to the list of users.
      *
@@ -92,6 +115,7 @@ public class UserDAOJPAImpl implements UserDAO {
     @Override
     public User updateUser(User user) {
         User userObject = entityManager.find(User.class, user.getID());
-        return entityManager.merge(user);
+
+        return entityManager.merge(userObject);
     }
 }

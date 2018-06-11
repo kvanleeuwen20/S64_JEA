@@ -13,7 +13,11 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(
                 name = "Message.findAllFromUser",
-                query = "SELECT m FROM Message m WHERE m.poster.id = :userId"
+                query = "SELECT m FROM Message m WHERE m.poster.id = :userId ORDER BY m.postTime DESC"
+        ),
+        @NamedQuery(
+                name = "Message.findAllMessagesFromFollowing",
+                query = "SELECT m FROM Message m WHERE m.poster.id IN (SELECT f.id FROM App_User u LEFT JOIN u.following f WHERE u.id = :userId) ORDER BY m.postTime DESC"
         ),
         @NamedQuery(
                 name = "Message.findAllWhereContentLike",

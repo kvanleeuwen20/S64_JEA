@@ -3,22 +3,26 @@ package dto;
 import domain.User;
 
 public class FollowerDTO {
-    private int userID;
+    private int id;
     private String username;
     private String profilePicturePath;
 
-    public FollowerDTO(int userID, String username, String profilePicturePath) {
-        this.userID = userID;
+    public FollowerDTO() {
+
+    }
+
+    public FollowerDTO(int id, String username, String profilePicturePath) {
+        this.id = id;
         this.username = username;
         this.profilePicturePath = profilePicturePath;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getID() {
+        return id;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setID(int id) {
+        this.id = id;
     }
 
     public String getUsername() {

@@ -13,6 +13,8 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "App_User.findAll", query = "SELECT u FROM App_User u"),
         @NamedQuery(name = "App_User.findByUsername", query = "SELECT u FROM App_User u WHERE u.username = :username"),
+        @NamedQuery(name = "App_User.findByEmail", query = "SELECT u FROM App_User u WHERE u.email = :email"),
+        @NamedQuery(name = "App_User.findByID", query = "SELECT u FROM App_User u WHERE u.id = :id"),
         @NamedQuery(
                 name = "App_User.authenticate",
                 query = "SELECT u FROM App_User u WHERE u.email = :email AND u.password = :password"
@@ -60,6 +62,7 @@ public class User implements Serializable{
     /**
      * Path to the profile picture of the user. Can be an empty String.
      */
+    @Lob
     protected String profilePicturePath;
     /**
      * Role of the user.

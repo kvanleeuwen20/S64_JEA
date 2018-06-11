@@ -1,0 +1,12 @@
+<div *ngIf="sessionService.loggedInUser" class="container">
+  <h2>Followers</h2>
+
+  <table class="table">
+    <tr *ngFor="let follower of followers">
+      <a (click)="navigate(follower.id)">
+        <td><img src="{{follower.profilePicturePath}}" /></td>
+        <td>{{follower.username}}</td>
+      </a>
+    </tr>
+  </table>
+</div>

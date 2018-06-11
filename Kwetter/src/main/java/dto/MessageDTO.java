@@ -23,6 +23,10 @@ public class MessageDTO {
 
     private GregorianCalendar postTime;
 
+    public MessageDTO() {
+
+    }
+
     public MessageDTO(int id, String content, Set<HashTagDTO> hashTags, Set<UserDTO> likes, Set<UserDTO> mentions, UserDTO poster, GregorianCalendar postTime) {
         this.id = id;
         this.content = content;
