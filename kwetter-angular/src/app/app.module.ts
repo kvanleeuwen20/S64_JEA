@@ -18,6 +18,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import {FormsModule} from '@angular/forms';
 import {SessionService} from './session.service';
 import { PostMessageComponent } from './post-message/post-message.component';
+import { WebsockettestComponent } from './websockettest/websockettest.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { PostMessageComponent } from './post-message/post-message.component';
     FollowersComponent,
     UserDetailsComponent,
     TimelineComponent,
-    PostMessageComponent
+    PostMessageComponent,
+    WebsockettestComponent
   ],
   imports: [
     BrowserModule,

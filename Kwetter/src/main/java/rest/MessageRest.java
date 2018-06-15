@@ -35,7 +35,7 @@ public class MessageRest {
      * @return a list of messages.
      */
     @GET
-    @Secured({UserRole.USER, UserRole.ADMINISTRATOR})
+    //@Secured({UserRole.USER, UserRole.ADMINISTRATOR})
     @Path("/{id}")
     @Produces({APPLICATION_JSON})
     public List<MessageDTO> findMessagesFromUser(@PathParam("id") int id) {
