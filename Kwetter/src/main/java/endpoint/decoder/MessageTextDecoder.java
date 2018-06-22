@@ -31,6 +31,7 @@ public class MessageTextDecoder implements Decoder.Text<MessageDTO> {
     @Override
     public boolean willDecode(String s) {
         try {
+            System.out.println(s);
             this.jsonHandler.deserializeMessageDTOJSON(s);
             return true;
         }

@@ -4,6 +4,7 @@ import {MessagesService} from '../messages.service';
 import {SessionService} from '../session.service';
 import {User} from '../User';
 import {Router} from '@angular/router';
+import {MessagepushendpointService} from "../messagepushendpoint.service";
 
 @Component({
   selector: 'app-post-message',
@@ -35,8 +36,7 @@ export class PostMessageComponent implements OnInit {
     this.message.poster = this.sessionService.loggedInUser;
     this.message.postTime = new Date();
 
-    this.messagesService.addMessage(this.message)
-      .subscribe(result => console.log(result));
+    this.messagesService.addMessage(this.message);
   }
 
 }

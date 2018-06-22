@@ -19,7 +19,7 @@ import {FormsModule} from '@angular/forms';
 import {SessionService} from './session.service';
 import { PostMessageComponent } from './post-message/post-message.component';
 import { WebsockettestComponent } from './websockettest/websockettest.component';
-
+import {MessagepushendpointService} from "./messagepushendpoint.service";
 
 @NgModule({
   declarations: [
@@ -41,9 +41,9 @@ import { WebsockettestComponent } from './websockettest/websockettest.component'
     NgbModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [HttpClientModule, UsersService, MessagesService, SessionService],
+  providers: [HttpClientModule, UsersService, MessagesService, SessionService, MessagepushendpointService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

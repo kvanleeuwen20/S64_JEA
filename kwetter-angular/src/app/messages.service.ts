@@ -5,14 +5,16 @@ import {catchError, tap} from 'rxjs/operators';
 import {User} from './User';
 import {Message} from './Message';
 import {of} from 'rxjs/observable/of';
+import {MessagepushendpointService} from "./messagepushendpoint.service";
 
 @Injectable()
-export class MessagesService {
+export class MessagesService  {
   private messagesURL = 'http://localhost:8080/Kwetter-1.0-SNAPSHOT/api/messages';
   private tokenKey = 'app_token';
 
   constructor(
-    private http: HttpClient) {}
+    private http: HttpClient,
+    private messagePushEndpointService: MessagepushendpointService) {}
 
   getMessages (id: number): Observable<Message[]> {
     const url = `${this.messagesURL}/${id}`;
@@ -21,6 +23,10 @@ export class MessagesService {
         tap(messages => this.log(`fetched messages`)),
         catchError(this.handleError('getMessages', []))
       );
+  }
+
+  subscribeToRealTimeMessages(): Observable<Message> {
+    return this.messagePushEndpointService.subscribeToMessages();
   }
 
   getTimeLine (id: number): Observable<Message[]> {
@@ -32,12 +38,18 @@ export class MessagesService {
       );
   }
 
+  // addMessage (message: Message): Observable<Message> {
+  //   return this.http.post<Message>(this.messagesURL + '/post', message, this.getHTTPOptions()).pipe(
+  //     tap(_ => this.log(`added message w/ id=${message.id}`)),
+  //     catchError(this.handleError<Message>('addMessage'))
+  //   );
+  // }
+
   addMessage (message: Message): Observable<Message> {
-    return this.http.post<Message>(this.messagesURL + '/post', message, this.getHTTPOptions()).pipe(
-      tap(_ => this.log(`added message w/ id=${message.id}`)),
-      catchError(this.handleError<Message>('addMessage'))
-    );
+      this.messagePushEndpointService.addMessage(message);
+      return this.messagePushEndpointService.subscribeToMessages();
   }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

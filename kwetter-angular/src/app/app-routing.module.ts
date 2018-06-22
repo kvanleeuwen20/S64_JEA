@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {MessagesComponent} from './messages/messages.component';
 import {ProfileComponent} from './profile/profile.component';
 import {UsersComponent} from './users/users.component';
@@ -7,12 +7,12 @@ import {LoginComponent} from './login/login.component';
 import {FollowingComponent} from './following/following.component';
 import {FollowersComponent} from './followers/followers.component';
 import {UserDetailsComponent} from './user-details/user-details.component';
-import {TimelineComponent} from './timeline/timeline.component';
+import {WebsockettestComponent} from "./websockettest/websockettest.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'users', component: UsersComponent },
-  { path: 'timeline/:id', component: TimelineComponent },
+  { path: 'timeline/:id', component: WebsockettestComponent },
   { path: 'profile/:id', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'messages/:id', component: MessagesComponent, outlet: 'secondary' },

@@ -50,9 +50,9 @@ export class SessionService {
     this.token = token;
     const parsedToken = this.parseJwt(this.token.token);
 
-    this.getUser(parsedToken.sub);
-
     this.store(this.token.token);
+
+    this.getUser(parsedToken.sub);
   }
 
   private parseJwt (token) {

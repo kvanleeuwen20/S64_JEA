@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MessagesService} from '../messages.service';
 import {Message} from '../Message';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SessionService} from '../session.service';
 
 @Component({
-  selector: 'app-timeline',
-  templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.css']
+  selector: 'app-websockettest',
+  templateUrl: './websockettest.component.html',
+  styleUrls: ['./websockettest.component.css']
 })
 export class WebsockettestComponent implements OnInit {
   messages: Message[];
@@ -24,7 +24,16 @@ export class WebsockettestComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
+    this.messagesService.subscribeToRealTimeMessages().subscribe(message => this.addNewMessage(message.data));
+    //this.messagesService.subscribeToRealTimeMessages().subscribe(message => this.messages.unshift(message.data));
     this.getMessages();
+  }
+
+  addNewMessage(messageString: String) {
+    let message = JSON.parse(messageString);
+    console.log(typeof(message))
+    console.log(message);
+    this.messages.unshift(message);
   }
 
   getMessages(): void {
