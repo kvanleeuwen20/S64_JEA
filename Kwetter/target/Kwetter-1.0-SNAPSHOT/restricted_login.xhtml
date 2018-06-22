@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <p><a href="protected/home.xhtml">try to go to secret
+        page</a></p>
+
+
+
+    <form action="login" method="post">
+    <!--<h:form>-->
+        <input type="text" name="username"/>
+        <input type="password" name="password"/>
+        <input type="submit"/>
+        <!--<h:inputText value="#{loginBean.name}" />-->
+        <!--<h:inputText value="#{loginBean.password}" />-->
+        <!--<h:commandButton value="login.java"-->
+                         <!--action="#{loginBean.dologin()}" method="post" />-->
+    <!--</h:form>-->
+    </form>
+</f:view>
+</html>

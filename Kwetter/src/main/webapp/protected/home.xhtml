@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xsi:schemaLocation="http://primefaces.org/ui ">
+<h:head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"></link>
+    <title>Management interface</title>
+</h:head>
+
+<h:body>
+    <ui:param name="currentID" value="#{0}"/>
+    <h:form>
+        <h:dataTable value="#{UserRest.users}" var="users">
+            <h:column>
+                <xsi:facet name="Header">Name</xsi:facet>
+                #{users.username}
+            </h:column>
+
+            <h:column>
+                <xsi:facet name="Header">ID</xsi:facet>
+                #{users.id}
+            </h:column>
+
+            <h:column>
+                <xsi:facet name="Header">Email</xsi:facet>
+                #{users.email}
+            </h:column>
+
+            <h:column>
+                <xsi:facet name="Header">Role</xsi:facet>
+                #{users.role}
+            </h:column>
+            <h:column>
+                <xsi:set var = "currentID" scope = "session" value = "#{users.id}"/>
+                <h:commandButton value="#{users.id}" type="submit" action="#{UserRest.newCurrentID(users.id)}">
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+
+
+    <h:form>
+        <h:dataTable value="#{MessageRest.findMessagesFromUser(UserRest.currentID)}" var="messages">
+            <h:column>
+                <xsi:facet name="Header"><br/><b>Content:</b></xsi:facet>
+                #{messages.content}
+            </h:column>
+            <h:column>
+                <h:commandButton value="delete" type="submit" action="#{MessageRest.removeMessage(messages.id)}" />
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</h:body>
+</html>
