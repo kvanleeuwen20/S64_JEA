@@ -35,14 +35,14 @@ public class AuthenticationController {
             return new Token(token);
     }
 
-    @RequestMapping("authentication/loggedin")
+    @RequestMapping("authentication/loggedin/{token}")
     public int loggedIn(@PathVariable("token") String token) throws Exception {
             System.out.println("TOKEN WHICH WILL BE PARSED:\n" + token);
 
             // Check if the token was issued by the server and if it's not expired
             // Throw an Exception if the token is invalid
             int id = Integer.parseInt(Jwts.parser().setSigningKey(Secret.SECRET)
-                    .parseClaimsJws(token).getBody().getId());
+                    .parseClaimsJws(token).getBody().getSubject());
 
             return id;
 
