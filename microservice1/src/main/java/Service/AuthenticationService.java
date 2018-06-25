@@ -1,9 +1,14 @@
 package Service;
 
+import Domain.User;
+import Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
+
+    @Autowired
     private UserRepository userRepository;
 
     /**
@@ -13,7 +18,7 @@ public class AuthenticationService {
      * @param password the password
      * @return the user if one is found, else null.
      */
-    public domain.User authenticate(String email, String password) {
-        return userRepository (email, password);
+    public User authenticate(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
     }
 }

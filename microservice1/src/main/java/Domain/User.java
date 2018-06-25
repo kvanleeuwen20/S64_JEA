@@ -1,4 +1,4 @@
-package domain;
+package Domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -79,11 +79,6 @@ public class User implements Serializable{
      */
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     protected List<User> following;
-    /**
-     * List of messages this user has posted.
-     */
-    @OneToMany(mappedBy = "poster")
-    protected List<Message> messages;
 
     /**
      * Empty constructor for JPA
@@ -132,8 +127,6 @@ public class User implements Serializable{
 
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
-
-        this.messages = new ArrayList<>();
     }
 
     /**
@@ -184,15 +177,6 @@ public class User implements Serializable{
      */
     public String getLocation() {
         return location;
-    }
-
-    /**
-     * Return a copy of the list of messages posted by this user.
-     *
-     * @return messages
-     */
-    public List<Message> getMessages() {
-        return new ArrayList<>(this.messages);
     }
 
     /**

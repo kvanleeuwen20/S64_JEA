@@ -1,4 +1,4 @@
-package domain;
+package Domain;
 
 /**
  * Role of a user in the application.

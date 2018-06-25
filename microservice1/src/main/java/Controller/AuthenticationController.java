@@ -1,5 +1,6 @@
 package Controller;
 
+import Domain.User;
 import Security.Secret;
 import Service.AuthenticationService;
 import io.jsonwebtoken.Jwts;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import javax.servlet.ServletException;
+import javax.xml.ws.Response;
 import java.util.Date;
 
 @RestController
@@ -20,11 +22,7 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @RequestMapping("/authentication/login")
-    public String login(@RequestParam("email") String email, @RequestParam("password") String password) throws ServletException {
-        System.out.println(email);
-        System.out.println(password);
-        try {
-
+    public Token login(@RequestParam("email") String email, @RequestParam("password") String password) throws Exception {
             // Authenticate the user using the credentials provided
             int id = authenticate(email, password).getID();
 
@@ -33,16 +31,10 @@ public class AuthenticationController {
 
             // Return the token on the response
             return new Token(token);
-            //return Response.ok(token, MediaType.TEXT_PLAIN).build();
-
-        } catch (Exception e) {
-            return null;
-            // return Response.status(Response.Status.FORBIDDEN).build();
-        }
     }
 
-    private domain.User authenticate(String email, String password) throws Exception {
-        domain.User user = authenticationService.authenticate(email, password);
+    private User authenticate(String email, String password) throws Exception {
+        User user = authenticationService.authenticate(email, password);
 
         if (user == null) {
             throw new Exception("Invalid username and/or password");
@@ -56,7 +48,7 @@ public class AuthenticationController {
                 .setSubject(Integer.toString(id))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + 1800000))
-                .signWith(SignatureAlgorithm.HS512, AuthenticationFilter.secret)
+                .signWith(SignatureAlgorithm.HS512, Secret.SECRET)
                 .compact();
 
         System.out.println("TOKEN GENERATED:\n" + compactJws);
