@@ -1,10 +1,9 @@
 package Controller;
 
-import Security.JwtFilter;
+import Security.Secret;
 import Service.AuthenticationService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import javax.servlet.ServletException;
-import java.security.Key;
 import java.util.Date;
 
 @RestController
@@ -22,26 +20,63 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @RequestMapping("/authentication/login")
-    public String login(@RequestParam("identifier") String identifier, @RequestParam("password") String password) throws ServletException {
-        final String adminPassword="QWERTY12345";
+    public String login(@RequestParam("email") String email, @RequestParam("password") String password) throws ServletException {
+        System.out.println(email);
+        System.out.println(password);
+        try {
 
-        if (password == null || password.isEmpty()) {
-            throw new ServletException("Please fill in username and password");
+            // Authenticate the user using the credentials provided
+            int id = authenticate(email, password).getID();
+
+            // Issue a token for the user
+            String token = issueToken(id);
+
+            // Return the token on the response
+            return new Token(token);
+            //return Response.ok(token, MediaType.TEXT_PLAIN).build();
+
+        } catch (Exception e) {
+            return null;
+            // return Response.status(Response.Status.FORBIDDEN).build();
         }
-
-        if (!password.equals(adminPassword)) {
-            throw new ServletException("Invalid login. Please check your name and password.");
-        }
-
-        return this.getJWTToken(identifier);
     }
 
-    private String getJWTToken(String identifier) {
-        if (identifier == null || identifier.isEmpty()) {
-            throw new IllegalArgumentException("Identifier cannot be null.");
+    private domain.User authenticate(String email, String password) throws Exception {
+        domain.User user = authenticationService.authenticate(email, password);
+
+        if (user == null) {
+            throw new Exception("Invalid username and/or password");
         }
 
-        return Jwts.builder().setSubject(identifier).claim("roles", "ADMIN").setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, JwtFilter.secret).compact();
+        return user;
+    }
+
+    private String issueToken(int id) {
+        String compactJws = Jwts.builder()
+                .setSubject(Integer.toString(id))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + 1800000))
+                .signWith(SignatureAlgorithm.HS512, AuthenticationFilter.secret)
+                .compact();
+
+        System.out.println("TOKEN GENERATED:\n" + compactJws);
+
+        return compactJws;
+    }
+
+    private class Token {
+        private String token;
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        public Token(String token) {
+            this.token = token;
+        }
     }
 }
