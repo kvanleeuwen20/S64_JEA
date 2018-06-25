@@ -6,6 +6,7 @@ import Service.AuthenticationService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletException;
 import javax.xml.ws.Response;
+import java.security.Security;
 import java.util.Date;
 
 @RestController
@@ -31,6 +33,19 @@ public class AuthenticationController {
 
             // Return the token on the response
             return new Token(token);
+    }
+
+    @RequestMapping("authentication/loggedin/{token}")
+    public int loggedIn(@PathVariable("token") String token) throws Exception {
+            System.out.println("TOKEN WHICH WILL BE PARSED:\n" + token);
+
+            // Check if the token was issued by the server and if it's not expired
+            // Throw an Exception if the token is invalid
+            int id = Integer.parseInt(Jwts.parser().setSigningKey(Secret.SECRET)
+                    .parseClaimsJws(token).getBody().getSubject());
+
+            return id;
+
     }
 
     private User authenticate(String email, String password) throws Exception {
