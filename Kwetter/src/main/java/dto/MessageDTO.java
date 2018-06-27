@@ -1,8 +1,6 @@
 package dto;
 
-import domain.HashTag;
 import domain.Message;
-import domain.User;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
