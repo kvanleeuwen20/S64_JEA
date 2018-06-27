@@ -80,7 +80,7 @@ public class UserController {
      * @param id the id of the user who needs to be deleted from the db
      */
     @RequestMapping(method= RequestMethod.DELETE, value="/delete")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(int id) {
         userService.remove(id);
     }
 

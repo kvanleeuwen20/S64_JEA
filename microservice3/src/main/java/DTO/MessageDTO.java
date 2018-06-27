@@ -1,6 +1,6 @@
-package dto;
+package DTO;
 
-import domain.Message;
+import Domain.Message;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
