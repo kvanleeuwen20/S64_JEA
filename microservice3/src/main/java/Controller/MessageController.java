@@ -3,10 +3,7 @@ package Controller;
 import DTO.MessageDTO;
 import Service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,7 +54,7 @@ public class MessageController {
      * @return the id of the new message if succesful, else -1.
      */
     @RequestMapping(method= RequestMethod.POST, value="/post")
-    public int postMessage(MessageDTO message) {
+    public int postMessage(@RequestBody MessageDTO message) {
         return messageService.postMessage(message);
     }
 
@@ -67,7 +64,7 @@ public class MessageController {
      * @param id the id of the message to remove.
      */
     @RequestMapping(method= RequestMethod.DELETE, value="/remove")
-    public void removeMessage(int id) {
+    public void removeMessage(@RequestBody int id) {
         messageService.removeMessage(id);
     }
 
@@ -78,7 +75,7 @@ public class MessageController {
      * @return the updated message.
      */
     @RequestMapping(method= RequestMethod.POST, value="/update")
-    public MessageDTO updateMessage(MessageDTO message) {
+    public MessageDTO updateMessage(@RequestBody MessageDTO message) {
         return MessageDTO.fromMessage(messageService.updateMessage(message));
     }
 }

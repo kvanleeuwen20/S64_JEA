@@ -68,7 +68,7 @@ public class UserController {
      * @return user instance including in JSON format when successfully saved in the db
      */
     @RequestMapping(method= RequestMethod.POST, value="/users/update")
-    public UserDTO update(UserDTO user) {
+    public UserDTO update(@RequestBody UserDTO user) {
         return UserDTO.fromUser(userService.update(user));
     }
 
@@ -80,7 +80,7 @@ public class UserController {
      * @param id the id of the user who needs to be deleted from the db
      */
     @RequestMapping(method= RequestMethod.DELETE, value="/delete")
-    public void delete(int id) {
+    public void delete(@RequestBody  int id) {
         userService.remove(id);
     }
 
