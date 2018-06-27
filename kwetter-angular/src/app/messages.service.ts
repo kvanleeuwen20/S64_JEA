@@ -8,7 +8,7 @@ import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class MessagesService {
-  private messagesURL = 'http://localhost:8080/Kwetter-1.0-SNAPSHOT/api/messages';
+  private messagesURL = 'http://localhost:8082/messages';
   private tokenKey = 'app_token';
 
   constructor(

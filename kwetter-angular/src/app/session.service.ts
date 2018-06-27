@@ -10,7 +10,7 @@ import {Token} from './Token';
 @Injectable()
 export class SessionService {
 
-  private authenticationURL = 'http://localhost:8080/Kwetter-1.0-SNAPSHOT/api/authentication';
+  private authenticationURL = 'http://localhost:8080/authentication';
   private tokenKey = 'app_token';
 
   loggedInUser: User;
@@ -38,7 +38,7 @@ export class SessionService {
   }
 
   public login(email: string, password: string): Observable<User> {
-    this.http.get<Token>(this.authenticationURL + `/${email}/${password}`)
+    this.http.get<Token>(this.authenticationURL + `/login?email=${email}&password=${password}`)
       .pipe(
         catchError(this.handleError('login'))
       ).subscribe(token => this.handleToken(token));
@@ -50,9 +50,9 @@ export class SessionService {
     this.token = token;
     const parsedToken = this.parseJwt(this.token.token);
 
-    this.getUser(parsedToken.sub);
-
     this.store(this.token.token);
+
+    this.getUser(parsedToken.sub);
   }
 
   private parseJwt (token) {

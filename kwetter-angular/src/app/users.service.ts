@@ -7,7 +7,7 @@ import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class UsersService {
-  private usersURL = 'http://localhost:8080/Kwetter-1.0-SNAPSHOT/api/users';
+  private usersURL = 'http://localhost:8081/users';
   private tokenKey = 'app_token';
 
   constructor(
